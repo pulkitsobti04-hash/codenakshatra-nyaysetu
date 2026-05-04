@@ -321,21 +321,22 @@ textarea:focus-visible,
 }
 .nav-logo-icon::before { content: "N"; font-size: 18px; }
 .nav-links {
-  gap: clamp(3px, .5vw, 10px);
+  gap: clamp(2px, .35vw, 7px);
   flex: 1 1 auto;
   min-width: 0;
-  overflow: hidden;
-  padding-right: clamp(8px, 1vw, 16px);
+  overflow: visible;
+  padding-right: clamp(4px, .6vw, 10px);
 }
 .nav-link {
   height: 54px;
-  padding: 0 clamp(8px, .75vw, 16px);
+  padding: 0 clamp(6px, .55vw, 12px);
   border: 1px solid transparent;
   border-radius: 10px;
   color: rgba(246,240,229,.48);
-  font-size: clamp(13px, .9vw, 15px);
+  font-size: clamp(12px, .82vw, 14px);
   font-weight: 600;
   letter-spacing: 0;
+  white-space: nowrap;
 }
 .nav-link:hover { background: rgba(255,255,255,.05); color: #f7f1e6; }
 .nav-link.active {
@@ -871,6 +872,14 @@ body.emergency-open .page.active {
   font-size: 13px; color: var(--text); background: var(--bg);
   outline: none; transition: border-color .15s;
 }
+.form-select option, .lm-select option, .lang-input option {
+  background: #0d0d0d;
+  color: #f5f0e8;
+}
+.form-select option:checked, .lm-select option:checked, .lang-input option:checked {
+  background: #cda662;
+  color: #090909;
+}
 .form-input:focus, .form-textarea:focus { border-color: var(--blue); }
 .form-textarea { resize: vertical; min-height: 80px; line-height: 1.5; }
 .btn-generate {
@@ -907,8 +916,13 @@ body.emergency-open .page.active {
 }
 .docs-preview-empty {
   display: flex; flex-direction: column; align-items: center;
-  justify-content: center; height: 100%; color: var(--text-3);
-  font-family: 'Inter', sans-serif; font-size: 14px; gap: 8px;
+  justify-content: center; height: 100%; color: rgba(246,240,229,.70);
+  font-family: 'Inter', sans-serif; font-size: 15px; gap: 12px;
+  text-align: center; line-height: 1.65; letter-spacing: 0;
+}
+.docs-preview-empty strong {
+  color: #f1d38b;
+  font-weight: 800;
 }
 .docs-disclaimer {
   margin-top: 12px; font-size: 11px; color: var(--text-3); line-height: 1.5;
@@ -975,20 +989,20 @@ body.emergency-open .page.active {
 /* ════════════════════════════════
    STUDENTS PAGE
 ════════════════════════════════ */
-.students-page { max-width: 960px; margin: 0 auto; padding: 48px 24px; }
+.students-page, .lawyers-page { max-width: 960px; margin: 0 auto; padding: 48px 24px; }
 .students-h1 {
   font-family: 'Playfair Display', serif;
   font-size: clamp(26px, 3vw, 40px); font-weight: 700; color: var(--navy); margin-bottom: 10px;
 }
-.students-sub { color: var(--text-2); font-size: 15px; margin-bottom: 32px; }
+.students-sub, .lawyers-sub { color: var(--text-2); font-size: 15px; margin-bottom: 32px; }
 
 .students-tabs { display: flex; flex-wrap: wrap; gap: 0; border-bottom: 2px solid var(--border); margin-bottom: 28px; }
-.students-tab {
+.students-tab, .lawyer-tab {
   padding: 10px 18px; font-size: 13px; font-weight: 600; border: none;
   background: none; color: var(--text-3); border-bottom: 2px solid transparent;
   margin-bottom: -2px; transition: color .15s, border-color .15s;
 }
-.students-tab.active { color: var(--blue); border-bottom-color: var(--blue); }
+.students-tab.active, .lawyer-tab.active { color: var(--blue); border-bottom-color: var(--blue); }
 
 .dashboard-stats {
   display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 24px;
@@ -1066,6 +1080,77 @@ body.emergency-open .page.active {
 .btn-join:hover { background: var(--blue); }
 .form-agree { font-size: 11px; color: var(--text-3); margin-top: 10px; line-height: 1.5; }
 .form-agree a { color: var(--blue); text-decoration: underline; }
+
+/* Login / onboarding page */
+.login-page { max-width: 1080px; margin: 0 auto; padding: 52px 24px; }
+.login-header { max-width: 680px; margin-bottom: 30px; }
+.login-h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 4vw, 44px); font-weight: 700; color: var(--navy); margin-bottom: 10px;
+}
+.login-sub { color: var(--text-2); font-size: 15px; line-height: 1.7; }
+.login-grid { display: grid; grid-template-columns: 320px minmax(0, 1fr); gap: 24px; align-items: start; }
+@media(max-width:800px) { .login-grid { grid-template-columns: 1fr; } }
+.role-panel, .login-form-panel {
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 22px;
+}
+.role-panel-title, .login-form-title { font-weight: 700; font-size: 15px; color: var(--navy); margin-bottom: 14px; }
+.role-options { display: flex; flex-direction: column; gap: 10px; }
+.role-option {
+  width: 100%; text-align: left; display: grid; grid-template-columns: 38px minmax(0,1fr);
+  gap: 12px; align-items: center; padding: 13px; border: 1.5px solid var(--border-2);
+  background: rgba(255,255,255,.035); color: #f5f0e8; border-radius: 10px; transition: border-color .15s, background .15s;
+}
+.role-option:hover, .role-option.active {
+  border-color: rgba(216,181,111,.62);
+  background: rgba(216,181,111,.14);
+}
+.role-icon {
+  width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center;
+  background: rgba(15,23,42,.92); color: #f5f0e8; font-size: 17px; font-weight: 700;
+}
+.role-name { font-weight: 700; font-size: 14px; color: #f5f0e8; }
+.role-desc { font-size: 12px; color: rgba(246,240,229,.62); line-height: 1.45; margin-top: 2px; }
+.login-form { display: none; }
+.login-form.active { display: block; }
+.login-form-sub { color: var(--text-2); font-size: 13px; margin-bottom: 20px; line-height: 1.6; }
+.login-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+.login-actions .btn-join { width: auto; min-width: 180px; flex: 1; }
+.btn-login-secondary {
+  flex: 1; min-width: 180px; padding: 13px; background: rgba(255,255,255,.035); color: rgba(246,240,229,.82);
+  border: 1.5px solid rgba(255,255,255,.18); border-radius: var(--radius); font-size: 14px; font-weight: 700;
+  transition: background .15s, border-color .15s;
+}
+.btn-login-secondary:hover { background: rgba(216,181,111,.12); border-color: rgba(216,181,111,.52); color: #f1d38b; }
+.login-note { margin-top: 16px; padding: 12px 14px; border-radius: 8px; background: rgba(216,181,111,.13); color: #f1d38b; font-size: 12px; line-height: 1.55; }
+
+/* Lawyer lead cards */
+.lawyer-lead-head { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+.lawyer-lead-heading { font-size: 14px; font-weight: 700; color: #f5f0e8; }
+.lawyer-lead-meta { font-size: 12px; color: rgba(246,240,229,.58); }
+.lawyer-lead-intro { font-size: 13px; color: rgba(246,240,229,.62); margin-bottom: 18px; line-height: 1.7; }
+.lawyer-lead-card {
+  border: 1px solid rgba(216,181,111,.34);
+  background: rgba(255,255,255,.04);
+  border-radius: var(--radius-lg);
+  padding: 18px 20px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+}
+.lawyer-lead-top { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:10px; }
+.lawyer-lead-title { font-size: 15px; font-weight: 700; color: #f5f0e8; margin-top: 8px; }
+.lawyer-lead-summary { font-size: 13px; color: rgba(246,240,229,.66); line-height: 1.65; margin-bottom: 14px; }
+.lawyer-lead-urgency { font-size: 11px; color: #f8d892; font-weight: 800; flex-shrink: 0; }
+.lawyer-lead-urgency.high { color: #f87171; }
+.lawyer-lead-actions { display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
+.lawyer-lead-btn {
+  padding: 8px 14px; border-radius: 8px; font-size: 12px; font-weight: 800;
+  border: 1px solid rgba(216,181,111,.22); background: rgba(255,255,255,.04);
+  color: rgba(246,240,229,.82);
+}
+.lawyer-lead-btn.accept { background: rgba(34,197,94,.14); border-color: rgba(74,222,128,.34); color: #86efac; }
+.lawyer-lead-btn.request { background: rgba(216,181,111,.14); border-color: rgba(216,181,111,.36); color: #f1d38b; }
+.lawyer-lead-btn:hover { transform: translateY(-1px); }
 
 /* ════════════════════════════════
    ABOUT / PRIVACY / TERMS PAGES
@@ -1194,21 +1279,21 @@ body { background: #070707; color: #f5f0e8; }
   color: #f5f0e8;
 }
 .section, .docs-page, .simp-page, .prose-page { max-width: 1120px; }
-.students-page { max-width: 960px; }
-.section-label, .docs-page .section-label, .simp-page .section-label, .students-page .section-label { color: #d8b56f; }
-.section-h2, .docs-h1, .simp-h1, .students-h1, .prose-page h1, .prose-page h2, .prose-page h3,
+.students-page, .lawyers-page { max-width: 960px; }
+.section-label, .docs-page .section-label, .simp-page .section-label, .students-page .section-label, .lawyers-page .section-label { color: #d8b56f; }
+.section-h2, .docs-h1, .simp-h1, .students-h1, .login-h1, .prose-page h1, .prose-page h2, .prose-page h3,
 .adv-title, .cap-card-title, .step-title, .docs-form-title, .docs-preview-title, .simp-panel-title,
-.students-tab, .join-form-title, .chat-bot-name, .chat-welcome-title, .lm-head-title, .lm-card-name {
+.students-tab, .lawyer-tab, .join-form-title, .login-form-title, .role-panel-title, .role-name, .chat-bot-name, .chat-welcome-title, .lm-head-title, .lm-card-name {
   color: #f5f0e8 !important;
 }
-.section-sub, .docs-sub, .simp-sub, .students-sub, .step-desc, .cap-card-desc, .adv-desc,
-.prose-page p, .prose-page li, .join-form-sub, .activity-text, .perf-label, .lm-card-qual,
+.section-sub, .docs-sub, .simp-sub, .students-sub, .lawyers-sub, .login-sub, .step-desc, .cap-card-desc, .adv-desc,
+.prose-page p, .prose-page li, .join-form-sub, .login-form-sub, .role-desc, .activity-text, .perf-label, .lm-card-qual,
 .lm-rating, .lm-location, .lm-bio, .form-label, .sidebar-section-title, .sidebar-header-title,
 .chat-welcome-sub, .chat-bot-status, .docs-disclaimer, .simp-word-count, .form-agree {
   color: rgba(246,240,229,.55) !important;
 }
 .adv-section, .cta-section, .site-footer { background: #070707; }
-.process-step, .cap-card, .docs-form-panel, .docs-preview-panel, .simp-panel, .dash-stat, .join-form,
+.process-step, .cap-card, .docs-form-panel, .docs-preview-panel, .simp-panel, .dash-stat, .join-form, .role-panel, .login-form-panel, .role-option,
 .lm-panel, .lm-card, .prose-page, .prose-toc, .disclaimer-box, .chat-sidebar, .chat-main,
 .chat-topbar, .chat-input-wrap, .chat-input-row, .chat-welcome, .msg-bubble.bot, .typing-dots,
 .quick-action-btn, .doc-tab, .simp-sample, .leaderboard-table, .activity-list {
@@ -1221,7 +1306,7 @@ body { background: #070707; color: #f5f0e8; }
   border-color: rgba(216,181,111,.55);
   box-shadow: 0 18px 40px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.05);
 }
-.cap-card-link, .students-tab.active, .footer-link:hover, .form-agree a, .prose-toc a:hover { color: #d8b56f; }
+.cap-card-link, .students-tab.active, .lawyer-tab.active, .footer-link:hover, .form-agree a, .prose-toc a:hover { color: #d8b56f; }
 .adv-num, .step-role, .badge-blue, .lm-tag, .evidence-file {
   background: rgba(216,181,111,.13);
   color: #d8b56f;
@@ -1260,7 +1345,7 @@ body { background: #070707; color: #f5f0e8; }
   background: rgba(255,255,255,.07);
   color: #f5f0e8;
 }
-.doc-tab.active, .students-tab.active {
+.doc-tab.active, .students-tab.active, .lawyer-tab.active {
   border-color: #d8b56f;
   background: rgba(216,181,111,.14);
   color: #d8b56f !important;
@@ -1287,7 +1372,7 @@ body { background: #070707; color: #f5f0e8; }
 .lm-overlay { background: rgba(0,0,0,.72); backdrop-filter: blur(10px); }
 .lm-head, .lm-filters, .lm-foot { border-color: rgba(255,255,255,.09); }
 .lm-fee, .lm-stars { color: #d8b56f; }
-.students-tab { color: rgba(246,240,229,.52); }
+.students-tab, .lawyer-tab { color: rgba(246,240,229,.52); }
 .dashboard-stats, .activity-list, .perf-bars, .leaderboard-table, .join-form { color: #f5f0e8; }
 .dash-stat { border-color: rgba(255,255,255,.09); }
 .dash-stat-num, .perf-pct, .leaderboard-table td, .leaderboard-table th { color: #f5f0e8; }
@@ -1396,6 +1481,7 @@ body.theme-bright .section-h2,
 body.theme-bright .docs-h1,
 body.theme-bright .simp-h1,
 body.theme-bright .students-h1,
+body.theme-bright .login-h1,
 body.theme-bright .prose-page h1,
 body.theme-bright .prose-page h2,
 body.theme-bright .prose-page h3,
@@ -1406,6 +1492,7 @@ body.theme-bright .docs-form-title,
 body.theme-bright .docs-preview-title,
 body.theme-bright .simp-panel-title,
 body.theme-bright .students-tab,
+body.theme-bright .lawyer-tab,
 body.theme-bright .join-form-title,
 body.theme-bright .chat-bot-name,
 body.theme-bright .chat-welcome-title,
@@ -1419,6 +1506,8 @@ body.theme-bright .section-sub,
 body.theme-bright .docs-sub,
 body.theme-bright .simp-sub,
 body.theme-bright .students-sub,
+body.theme-bright .lawyers-sub,
+body.theme-bright .login-sub,
 body.theme-bright .step-desc,
 body.theme-bright .cap-card-desc,
 body.theme-bright .adv-desc,
@@ -1440,6 +1529,74 @@ body.theme-bright .docs-disclaimer,
 body.theme-bright .simp-word-count,
 body.theme-bright .form-agree {
   color: rgba(23,19,11,.62) !important;
+}
+body.theme-bright .lawyer-lead-heading,
+body.theme-bright .lawyer-lead-title {
+  color: #17130b;
+}
+body.theme-bright .lawyer-lead-meta,
+body.theme-bright .lawyer-lead-intro,
+body.theme-bright .lawyer-lead-summary {
+  color: rgba(23,19,11,.64);
+}
+body.theme-bright .lawyer-lead-card {
+  background: rgba(255,255,255,.74);
+  border-color: rgba(205,166,98,.34);
+  box-shadow: 0 12px 32px rgba(92,65,22,.06);
+}
+body.theme-bright .lawyer-lead-btn {
+  background: #fffdfa;
+  color: rgba(23,19,11,.72);
+  border-color: rgba(23,19,11,.12);
+}
+body.theme-bright .lawyer-lead-btn.accept {
+  background: #d1fae5;
+  color: #065f46;
+  border-color: #6ee7b7;
+}
+body.theme-bright .lawyer-lead-btn.request {
+  background: #fef3c7;
+  color: #92400e;
+  border-color: #fcd34d;
+}
+body.theme-bright .role-option {
+  background: #fffdfa;
+  border-color: rgba(23,19,11,.12);
+}
+body.theme-bright .role-option:hover,
+body.theme-bright .role-option.active {
+  background: #fff3cd;
+  border-color: rgba(205,166,98,.64);
+}
+body.theme-bright .role-icon {
+  background: #0f172a;
+  color: #fff;
+}
+body.theme-bright .role-name {
+  color: #17130b !important;
+}
+body.theme-bright .role-desc {
+  color: rgba(23,19,11,.62) !important;
+}
+body.theme-bright .btn-login-secondary {
+  background: #fffdfa;
+  color: rgba(23,19,11,.72);
+  border-color: rgba(23,19,11,.16);
+}
+body.theme-bright .btn-login-secondary:hover {
+  background: #fff3cd;
+  color: #8a5a12;
+  border-color: rgba(205,166,98,.64);
+}
+body.theme-bright .login-note {
+  background: #fef3c7;
+  color: #92400e;
+}
+body.theme-bright .docs-preview-empty {
+  color: rgba(23,19,11,.62);
+}
+body.theme-bright .docs-preview-empty strong {
+  color: #8a5a12;
 }
 body.theme-bright .process-step,
 body.theme-bright .cap-card,
@@ -1481,6 +1638,18 @@ body.theme-bright .simp-output,
 body.theme-bright .chat-textarea {
   background: #fffdfa;
   border-color: rgba(23,19,11,.12);
+  color: #17130b;
+}
+body.theme-bright .form-select option,
+body.theme-bright .lm-select option,
+body.theme-bright .lang-input option {
+  background: #fffdfa;
+  color: #17130b;
+}
+body.theme-bright .form-select option:checked,
+body.theme-bright .lm-select option:checked,
+body.theme-bright .lang-input option:checked {
+  background: #e3c17b;
   color: #17130b;
 }
 body.theme-bright .form-input::placeholder,
@@ -1531,14 +1700,13 @@ body.theme-bright .emergency-panel {
 }
 
 @media(max-width:1320px) {
-  .btn-nav-solid:last-child { display: none; }
   .nav-logo {
     margin-right: 0;
     font-size: 19px;
   }
   .nav-link {
-    padding: 0 8px;
-    font-size: 13px;
+    padding: 0 6px;
+    font-size: 12px;
   }
   .lang-input {
     width: 146px;
@@ -1568,7 +1736,8 @@ body.theme-bright .emergency-panel {
   .nav-icon-btn { width: 44px; }
   .btn-nav-solid {
     height: 48px;
-    padding: 0 16px;
+    padding: 0 12px;
+    font-size: 13px;
   }
 }
 
@@ -1630,9 +1799,10 @@ body.theme-bright .emergency-panel {
   <div class="nav-links">
     <button class="nav-link active" data-page="home" onclick="showPage('home')">🏠 Home</button>
     <button class="nav-link" data-page="chat" onclick="showPage('chat')">⚖️ AI Chat</button>
-    <button class="nav-link" data-page="docs" onclick="showPage('docs')">📄 Documents</button>
-    <button class="nav-link" data-page="simplifier" onclick="showPage('simplifier')">📚 Simplifier</button>
+    <button class="nav-link" data-page="docs" onclick="showPage('docs')">📄 Docs</button>
+    <button class="nav-link" data-page="simplifier" onclick="showPage('simplifier')">📚 Simplify</button>
     <button class="nav-link" data-page="students" onclick="showPage('students')">🎓 Students</button>
+    <button class="nav-link" data-page="lawyers" onclick="showPage('lawyers')">⚖ Lawyers</button>
     <button class="nav-link" data-page="about" onclick="showPage('about')">ℹ️ About Us</button>
   </div>
   <div class="nav-right">
@@ -1645,8 +1815,8 @@ body.theme-bright .emergency-panel {
     </div>
     <button class="btn-nav-ghost nav-icon-btn" id="theme-toggle" type="button" title="Switch to brightness mode" aria-label="Switch to brightness mode" onclick="toggleTheme()">☀</button>
     <button class="btn-nav-ghost nav-icon-btn" type="button" title="Emergency help" aria-label="Emergency help" onclick="toggleEmergency()">⚠</button>
-    <button class="btn-nav-solid" onclick="showPage('chat')">Ask a Question</button>
-    <button class="btn-nav-solid" onclick="showPage('chat')">Get Started</button>
+    <button class="btn-nav-solid nav-ask" onclick="showPage('chat')">Ask a Question</button>
+    <button class="btn-nav-solid nav-start" onclick="openLoginRole('seeker')">Get Started</button>
   </div>
 </nav>
 
@@ -1671,8 +1841,8 @@ body.theme-bright .emergency-panel {
     <h1 class="home-h1">Justice should not depend on <em>who you know.</em></h1>
     <p class="home-sub">NyaySetu bridges the gap between people and the law. Ask legal questions in plain language — English, Hindi, or any Indian language — powered by AI.</p>
     <div class="home-actions">
-      <button class="btn-hero-primary" onclick="showPage('chat')">Start for Free →</button>
-      <button class="btn-hero-ghost" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">How It Works</button>
+      <button class="btn-hero-primary hero-ask" onclick="showPage('chat')">Ask a Question</button>
+      <button class="btn-hero-ghost hero-start" onclick="openLoginRole('seeker')">Get Started</button>
     </div>
     <div class="home-trust">
       <span>🔒 No signup required</span>
@@ -1798,9 +1968,10 @@ body.theme-bright .emergency-panel {
     <h2 class="cta-h2">Your rights matter. Know them.</h2>
     <p class="cta-sub">Ask your first legal question for free. No signup required to begin.</p>
     <div class="cta-actions">
-      <button class="btn-hero-primary" onclick="showPage('chat')">Start for Free →</button>
+      <button class="btn-hero-primary hero-ask" onclick="showPage('chat')">Ask a Question</button>
+      <button class="btn-hero-ghost hero-start" onclick="openLoginRole('seeker')">Get Started</button>
       <button class="btn-hero-ghost cta-student" onclick="openStudentTab('join')">Join as Student</button>
-      <button class="btn-hero-ghost cta-lawyer" onclick="openStudentTab('lawyer')">Join as Lawyer</button>
+      <button class="btn-hero-ghost cta-lawyer" onclick="openLawyerTab('join')">Join as Lawyer</button>
     </div>
     <div class="home-trust" style="margin-top:20px;">
       <span>No credit card required</span><span>Hindi &amp; English</span><span>12,400+ queries resolved</span>
@@ -1825,8 +1996,95 @@ body.theme-bright .emergency-panel {
 </div>
 
 <!-- ═══════════════════════════════════════
-     CHAT PAGE
+     LOGIN / ONBOARDING PAGE
 ═══════════════════════════════════════ -->
+<div id="page-login" class="page">
+  <div class="login-page">
+    <div class="login-header">
+      <div class="section-label">Get Started</div>
+      <h1 class="login-h1">Choose how you want to use NyaySetu.</h1>
+      <p class="login-sub">Continue as someone seeking legal help, join the student review ecosystem, or sign in as an advocate. Each path keeps the same guided NyaySetu experience.</p>
+    </div>
+
+    <div class="login-grid">
+      <div class="role-panel">
+        <div class="role-panel-title">Select your role</div>
+        <div class="role-options">
+          <button class="role-option active" data-role="seeker" onclick="selectLoginRole('seeker')">
+            <span class="role-icon">?</span>
+            <span>
+              <span class="role-name">Legal Help Seeker</span>
+              <span class="role-desc">Ask questions, create documents, and connect with advocates.</span>
+            </span>
+          </button>
+          <button class="role-option" data-role="student" onclick="selectLoginRole('student')">
+            <span class="role-icon">S</span>
+            <span>
+              <span class="role-name">Law Student</span>
+              <span class="role-desc">Review AI answers, earn credits, and build a legal portfolio.</span>
+            </span>
+          </button>
+          <button class="role-option" data-role="lawyer" onclick="selectLoginRole('lawyer')">
+            <span class="role-icon">A</span>
+            <span>
+              <span class="role-name">Advocate</span>
+              <span class="role-desc">Manage consultations and submit a verified lawyer profile.</span>
+            </span>
+          </button>
+        </div>
+        <div class="login-note">This is a frontend demo. Login details are not sent to a server.</div>
+      </div>
+
+      <div class="login-form-panel">
+        <div class="login-form active" id="login-seeker">
+          <div class="login-form-title">Continue as Legal Help Seeker</div>
+          <div class="login-form-sub">Use this path if you need legal information, document drafts, or a lawyer consultation.</div>
+          <div class="form-group"><label class="form-label" for="seeker-name">Full Name</label><input class="form-input" id="seeker-name" type="text" placeholder="Your full name" autocomplete="name"/></div>
+          <div class="form-group"><label class="form-label" for="seeker-phone">Phone or Email</label><input class="form-input" id="seeker-phone" type="text" placeholder="phone@example.com or +91 number" autocomplete="email"/></div>
+          <div class="form-group">
+            <label class="form-label" for="seeker-need">What do you need help with?</label>
+            <select class="form-select" id="seeker-need">
+              <option value="">Select an option</option>
+              <option>Ask a legal question</option>
+              <option>Generate a legal document</option>
+              <option>Understand legal text</option>
+              <option>Connect with a lawyer</option>
+            </select>
+          </div>
+          <div class="login-actions">
+            <button class="btn-join" onclick="loginSubmit(this, 'seeker')">Continue</button>
+            <button class="btn-login-secondary" onclick="showPage('chat')">Ask Without Login</button>
+          </div>
+        </div>
+
+        <div class="login-form" id="login-student">
+          <div class="login-form-title">Student Login</div>
+          <div class="login-form-sub">For law students who review queries, track credits, and appear on the leaderboard.</div>
+          <div class="form-group"><label class="form-label" for="student-login-email">Email Address</label><input class="form-input" id="student-login-email" type="email" placeholder="college@example.com" autocomplete="email"/></div>
+          <div class="form-group"><label class="form-label" for="student-login-password">Password</label><input class="form-input" id="student-login-password" type="password" placeholder="Enter password" autocomplete="current-password"/></div>
+          <div class="login-actions">
+            <button class="btn-join" onclick="loginSubmit(this, 'student')">Login as Student</button>
+            <button class="btn-login-secondary" onclick="openStudentTab('join')">Join as Student</button>
+          </div>
+        </div>
+
+        <div class="login-form" id="login-lawyer">
+          <div class="login-form-title">Advocate Login</div>
+          <div class="login-form-sub">For verified lawyers who want to receive case leads and manage consultations.</div>
+          <div class="form-group"><label class="form-label" for="lawyer-login-email">Email Address</label><input class="form-input" id="lawyer-login-email" type="email" placeholder="lawyer@example.com" autocomplete="email"/></div>
+          <div class="form-group"><label class="form-label" for="lawyer-login-enrollment">Bar Council / Enrollment No.</label><input class="form-input" id="lawyer-login-enrollment" type="text" placeholder="Enrollment number"/></div>
+          <div class="form-group"><label class="form-label" for="lawyer-login-password">Password</label><input class="form-input" id="lawyer-login-password" type="password" placeholder="Enter password" autocomplete="current-password"/></div>
+          <div class="login-actions">
+            <button class="btn-join" onclick="loginSubmit(this, 'lawyer')">Login as Advocate</button>
+            <button class="btn-login-secondary" onclick="openLawyerTab('join')">Join as Advocate</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CHAT PAGE -->
 <div id="page-chat" class="page">
   <!-- Sidebar -->
   <aside class="chat-sidebar">
@@ -2087,7 +2345,6 @@ body.theme-bright .emergency-panel {
       <button class="students-tab" onclick="studTab(this,'queue')">✅ Review Queue</button>
       <button class="students-tab" onclick="studTab(this,'leaderboard')">🏆 Leaderboard</button>
       <button class="students-tab" onclick="studTab(this,'join')">🎓 Join as Student</button>
-      <button class="students-tab" onclick="studTab(this,'lawyer')">⚖ Join as Lawyer</button>
     </div>
 
     <!-- Dashboard tab -->
@@ -2219,6 +2476,85 @@ body.theme-bright .emergency-panel {
 <!-- ═══════════════════════════════════════
      ABOUT PAGE
 ═══════════════════════════════════════ -->
+<!-- LAWYERS PAGE -->
+<div id="page-lawyers" class="page">
+  <div class="lawyers-page">
+    <div class="section-label">Lawyer Network</div>
+    <h1 class="students-h1">A verified advocate desk for NyaySetu cases.</h1>
+    <p class="lawyers-sub">This area is built for advocates who want organized case leads from NyaySetu users. Each lead is shaped from the user's chat, document inputs, urgency, location, budget, and consent before it reaches a lawyer.</p>
+
+    <div class="students-tabs">
+      <button class="lawyer-tab active" onclick="lawyerTab(this,'dashboard')">Case Desk</button>
+      <button class="lawyer-tab" onclick="lawyerTab(this,'leads')">Lead Inbox</button>
+      <button class="lawyer-tab" onclick="lawyerTab(this,'profile')">Trust & Verification</button>
+      <button class="lawyer-tab" onclick="lawyerTab(this,'join')">Join as Advocate</button>
+    </div>
+
+    <div id="lawyer-dashboard" class="lawyer-tab-content">
+      <div class="dashboard-stats">
+        <div class="dash-stat"><div class="dash-stat-num">24</div><div class="dash-stat-label">Matched Leads</div><div class="dash-stat-delta">By location + practice area</div></div>
+        <div class="dash-stat"><div class="dash-stat-num">11</div><div class="dash-stat-label">Urgent Reviews</div><div class="dash-stat-delta">Bail, notice, cyber fraud</div></div>
+        <div class="dash-stat"><div class="dash-stat-num">4.8</div><div class="dash-stat-label">Client Rating</div><div class="dash-stat-delta">After consultations</div></div>
+        <div class="dash-stat"><div class="dash-stat-num">6h</div><div class="dash-stat-label">Avg Response</div><div class="dash-stat-delta">Target response window</div></div>
+      </div>
+      <h3 style="font-size:14px;font-weight:600;color:var(--navy);margin-bottom:12px">How NyaySetu routes work to advocates</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px">
+        <div class="process-step" data-num="1"><div class="step-icon">1</div><div class="step-title">User asks first</div><div class="step-desc">The user starts in AI Chat, uploads evidence if needed, and chooses to connect with a lawyer.</div></div>
+        <div class="process-step" data-num="2"><div class="step-icon">2</div><div class="step-title">Case summary created</div><div class="step-desc">NyaySetu prepares a structured brief with facts, category, urgency, files, and open questions.</div></div>
+        <div class="process-step" data-num="3"><div class="step-icon">3</div><div class="step-title">Advocate matched</div><div class="step-desc">Matching considers specialization, city, language, budget, urgency, and verification status.</div></div>
+        <div class="process-step" data-num="4"><div class="step-icon">4</div><div class="step-title">Consultation accepted</div><div class="step-desc">The lawyer can accept, decline, request documents, or mark the matter as urgent.</div></div>
+      </div>
+    </div>
+
+    <div id="lawyer-leads" class="lawyer-tab-content" style="display:none">
+      <div class="lawyer-lead-head">
+        <span class="lawyer-lead-heading">Lead Inbox</span>
+        <span class="badge badge-blue">4 Demo Leads</span>
+        <span class="lawyer-lead-meta">· sorted by urgency</span>
+      </div>
+      <p class="lawyer-lead-intro">These examples show how NyaySetu presents cases to lawyers: concise facts, category, city, expected consultation budget, urgency, and whether a summary is ready.</p>
+      <div style="display:flex;flex-direction:column;gap:12px" id="lawyer-leads-list"></div>
+    </div>
+
+    <div id="lawyer-profile" class="lawyer-tab-content" style="display:none">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px">
+        <div class="process-step" data-num="1"><div class="step-icon">ID</div><div class="step-title">Identity & Bar check</div><div class="step-desc">Collect enrollment number, court/practice location, qualification, and supporting proof for verification.</div></div>
+        <div class="process-step" data-num="2"><div class="step-icon">SP</div><div class="step-title">Specialization map</div><div class="step-desc">Tag practice areas such as criminal, family, property, consumer, cyber, employment, or corporate law.</div></div>
+        <div class="process-step" data-num="3"><div class="step-icon">AV</div><div class="step-title">Availability controls</div><div class="step-desc">Future production flow can show consultation windows, language preference, fees, and case capacity.</div></div>
+        <div class="process-step" data-num="4"><div class="step-icon">TR</div><div class="step-title">Trust signals</div><div class="step-desc">Verified badge, user reviews, completed consultations, and clear professional conduct rules.</div></div>
+      </div>
+      <div class="docs-disclaimer" style="margin-top:18px">NyaySetu is not a law firm. Lawyers remain independent professionals. Production verification should happen through backend review, document checks, and moderation.</div>
+    </div>
+
+    <div id="lawyer-join" class="lawyer-tab-content" style="display:none">
+      <div class="join-form" data-form-type="lawyer">
+        <div class="join-form-title">Apply for NyaySetu Advocate Network</div>
+        <div class="join-form-sub">Submit practice details so NyaySetu can show your profile to users seeking professional consultation.</div>
+        <div class="form-group"><label class="form-label" for="lawyer-page-name">Full Name</label><input class="form-input" id="lawyer-page-name" name="fullName" type="text" placeholder="Adv. full name" autocomplete="name"/></div>
+        <div class="form-group"><label class="form-label" for="lawyer-page-email">Email</label><input class="form-input" id="lawyer-page-email" name="email" type="email" placeholder="lawyer@example.com" autocomplete="email"/></div>
+        <div class="form-group"><label class="form-label" for="lawyer-page-phone">Phone Number</label><input class="form-input" id="lawyer-page-phone" name="phone" type="tel" placeholder="+91 98765 43210" autocomplete="tel"/></div>
+        <div class="form-group"><label class="form-label" for="lawyer-page-qualification">Qualification</label><input class="form-input" id="lawyer-page-qualification" name="qualification" type="text" placeholder="LLB, LLM, Bar Council enrollment"/></div>
+        <div class="form-group">
+          <label class="form-label" for="lawyer-page-specialization">Specialization</label>
+          <select class="form-select" id="lawyer-page-specialization" name="specialization">
+            <option value="">Select specialization</option>
+            <option>Criminal Law</option><option>Civil Law</option><option>Cyber Law</option><option>Family Law</option>
+            <option>Property Law</option><option>Consumer Law</option><option>Employment Law</option><option>Corporate Law</option>
+          </select>
+        </div>
+        <div class="form-group"><label class="form-label" for="lawyer-page-experience">Years of Experience</label><input class="form-input" id="lawyer-page-experience" name="experience" type="number" min="0" placeholder="e.g. 5"/></div>
+        <div class="form-group"><label class="form-label" for="lawyer-page-location">Location (City/State)</label><input class="form-input" id="lawyer-page-location" name="location" type="text" placeholder="Delhi, Delhi"/></div>
+        <div class="form-group"><label class="form-label" for="lawyer-page-fees">Expected Fees</label><input class="form-input" id="lawyer-page-fees" name="fees" type="text" placeholder="e.g. ₹1500 per consultation"/></div>
+        <div class="form-group"><label class="form-label" for="lawyer-page-bio">Short Bio <span style="font-weight:400;color:var(--text-3)">(optional)</span></label><textarea class="form-textarea" id="lawyer-page-bio" name="bio" rows="3" placeholder="Briefly describe your practice areas and experience"></textarea></div>
+        <div class="form-group"><label class="form-label" for="lawyer-page-certificate">Upload Certificate <span style="font-weight:400;color:var(--text-3)">(UI only)</span></label><input class="form-input" id="lawyer-page-certificate" name="certificate" type="file" accept=".pdf,.jpg,.jpeg,.png"/></div>
+        <div class="docs-disclaimer" style="margin-bottom:12px">🔐 NyaySetu may request Bar Council ID and supporting documents before approval.</div>
+        <button class="btn-join" onclick="joinSubmit(this)">⚖ Submit Advocate Profile</button>
+        <div class="form-agree">By joining, you agree to NyaySetu's <a href="#" onclick="showPage('terms')">Terms of Service</a>, verification checks, and professional conduct rules.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div id="page-about" class="page">
   <div class="prose-page">
     <h1>About NyaySetu</h1>
@@ -2780,8 +3116,11 @@ function setPreviewTitle(value) {
   title.insertBefore(document.createTextNode(value), actions || null);
 }
 function applyKnownUiTranslation(dict) {
-  setAllText('.nav-link', ['Home', 'AI Chat', 'Documents', 'Simplifier', 'Students', 'About'].map(k => tr(dict, k)));
-  setAllText('.btn-nav-solid, .btn-hero-primary', Array.from(document.querySelectorAll('.btn-nav-solid, .btn-hero-primary')).map(() => tr(dict, 'Start for Free →')));
+  setAllText('.nav-link', ['Home', 'AI Chat', 'Docs', 'Simplify', 'Students', 'Lawyers', 'About'].map(k => tr(dict, k)));
+  setSelText('.nav-ask', tr(dict, 'Ask a Question'));
+  setSelText('.nav-start', tr(dict, 'Get Started'));
+  setAllText('.hero-ask', Array.from(document.querySelectorAll('.hero-ask')).map(() => tr(dict, 'Ask a Question')));
+  setAllText('.hero-start', Array.from(document.querySelectorAll('.hero-start')).map(() => tr(dict, 'Get Started')));
   setSelText('.home-eyebrow', `${tr(dict, 'AI-Powered')} · ${tr(dict, 'Legal Access')} · ${tr(dict, 'India')}`);
   const h1 = document.querySelector('.home-h1');
   if (h1) {
@@ -2792,7 +3131,6 @@ function applyKnownUiTranslation(dict) {
     h1.append(em);
   }
   setSelText('.home-sub', tr(dict, 'NyaySetu bridges the gap between people and the law. Ask legal questions in plain language — English, Hindi, or any Indian language — powered by AI.'));
-  setSelText('.btn-hero-ghost', tr(dict, 'How It Works'));
   setAllText('.home-trust span', [
     `🔒 ${tr(dict, 'No signup required')}`,
     tr(dict, 'Hindi, Urdu & more Indian languages'),
@@ -2802,13 +3140,13 @@ function applyKnownUiTranslation(dict) {
     tr(dict, '12,400+ queries resolved')
   ]);
   setAllText('.stat-label', ['Legal queries resolved', 'Law students onboarded', 'Documents generated', 'User satisfaction'].map(k => tr(dict, k)));
-  setAllText('.section-label', ['Process', 'Capabilities', 'Advantage', 'Document Generator', 'Law Simplifier'].map(k => tr(dict, k)));
+  setAllText('.section-label', ['Process', 'Capabilities', 'Advantage', 'Get Started', 'Document Generator', 'Law Simplifier', 'Student Ecosystem', 'Lawyer Network'].map(k => tr(dict, k)));
   setAllText('.section-h2', ['A system built for clarity', 'Every legal need, covered', 'Why NyaySetu exists'].map(k => tr(dict, k)));
   const sectionSubs = document.querySelectorAll('.section-sub');
   if (sectionSubs[0]) sectionSubs[0].textContent = tr(dict, 'Every query passes through AI analysis and human review — fast and reliable.');
   if (sectionSubs[1]) sectionSubs[1].textContent = tr(dict, 'Traditional legal help is slow, expensive, and inaccessible. We built NyaySetu to change all three.');
-  setAllText('.step-title', ['You Ask', 'AI Analyses', 'Student Reviews', 'Lawyer Escalates'].map(k => tr(dict, k)));
-  setAllText('.step-role', ['Citizen', 'NyaySetu AI', 'Law Student', 'Advocate'].map(k => tr(dict, k)));
+  setAllText('#how .step-title', ['You Ask', 'AI Analyses', 'Student Reviews', 'Lawyer Escalates'].map(k => tr(dict, k)));
+  setAllText('#how .step-role', ['Citizen', 'NyaySetu AI', 'Law Student', 'Advocate'].map(k => tr(dict, k)));
   setAllText('.cap-card-title', ['AI Legal Assistant', 'Document Generator', 'Law Simplifier', 'Student Ecosystem'].map(k => tr(dict, k)));
   setAllText('.cap-card-link', ['Open Chat →', 'Generate Now →', 'Try Simplifier →', 'Join as Student →'].map(k => tr(dict, k)));
   setSelText('.cta-h2', tr(dict, 'Your rights matter. Know them.'));
@@ -2821,7 +3159,7 @@ function applyKnownUiTranslation(dict) {
   setPreviewTitle(tr(dict, 'Document Preview'));
   setAllText('.docs-preview-actions button', ['Copy', 'Download PDF'].map(k => tr(dict, k)));
   setSelText('.simp-h1', tr(dict, 'Understand any legal text instantly'));
-  setSelText('.join-form-title', tr(dict, 'Join NyaySetu Students'));
+  setSelText('#stud-join .join-form-title', tr(dict, 'Join NyaySetu Students'));
 }
 function translatePhrase(original, dict) {
   const trimmed = original.trim();
@@ -3865,8 +4203,8 @@ async function simplifyText() {
    STUDENTS
 ══════════════════════════════════════ */
 function studTab(btn, tab) {
-  document.querySelectorAll('.students-tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.stud-tab-content').forEach(t => t.style.display = 'none');
+  document.querySelectorAll('#page-students .students-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('#page-students .stud-tab-content').forEach(t => t.style.display = 'none');
   btn.classList.add('active');
   const el = document.getElementById('stud-' + tab);
   if (el) el.style.display = 'block';
@@ -3877,10 +4215,77 @@ function studTab(btn, tab) {
 function openStudentTab(tab) {
   showPage('students');
   window.setTimeout(() => {
-    const target = [...document.querySelectorAll('.students-tab')]
+    const target = [...document.querySelectorAll('#page-students .students-tab')]
       .find(btn => btn.getAttribute('onclick')?.includes(`'${tab}'`));
     if (target) studTab(target, tab);
   }, 40);
+}
+
+function lawyerTab(btn, tab) {
+  document.querySelectorAll('#page-lawyers .lawyer-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.lawyer-tab-content').forEach(t => t.style.display = 'none');
+  btn.classList.add('active');
+  const el = document.getElementById('lawyer-' + tab);
+  if (el) el.style.display = 'block';
+  if (tab === 'leads' && !document.getElementById('lawyer-leads-list').dataset.built) buildLawyerLeads();
+}
+
+function openLawyerTab(tab = 'dashboard') {
+  showPage('lawyers');
+  window.setTimeout(() => {
+    const target = [...document.querySelectorAll('#page-lawyers .lawyer-tab')]
+      .find(btn => btn.getAttribute('onclick')?.includes(`'${tab}'`));
+    if (target) lawyerTab(target, tab);
+  }, 40);
+}
+
+function openLoginRole(role = 'seeker') {
+  showPage('login');
+  window.setTimeout(() => selectLoginRole(role), 40);
+}
+
+function selectLoginRole(role) {
+  document.querySelectorAll('.role-option').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.role === role);
+  });
+  document.querySelectorAll('.login-form').forEach(form => {
+    form.classList.toggle('active', form.id === 'login-' + role);
+  });
+}
+
+function loginSubmit(btn, role) {
+  const form = btn.closest('.login-form');
+  const fields = form.querySelectorAll('input, select');
+  let valid = true;
+
+  fields.forEach(field => {
+    const value = field.value.trim();
+    const badEmail = field.type === 'email' && value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+    const missing = !value;
+    field.style.borderColor = (missing || badEmail) ? 'var(--danger)' : '';
+    if (missing || badEmail) valid = false;
+  });
+
+  const oldNote = form.querySelector('.join-form-note');
+  if (oldNote) oldNote.remove();
+  if (!valid) {
+    const note = document.createElement('div');
+    note.className = 'join-form-note';
+    note.style.cssText = 'margin-top:12px;font-size:13px;color:var(--danger);font-weight:500';
+    note.textContent = 'Please complete all fields before continuing.';
+    btn.closest('.login-actions').after(note);
+    return;
+  }
+
+  localStorage.setItem('nyaysetu_active_role', role);
+  btn.textContent = role === 'lawyer' ? 'Opening Advocate Area...' : role === 'student' ? 'Opening Student Area...' : 'Opening AI Chat...';
+  btn.disabled = true;
+  window.setTimeout(() => {
+    if (role === 'student') showPage('students');
+    else if (role === 'lawyer') openLawyerTab('dashboard');
+    else showPage('chat');
+    btn.disabled = false;
+  }, 450);
 }
 
 function buildQueue() {
@@ -3919,6 +4324,48 @@ function reviewAction(btn, action) {
   const notice = document.createElement('div');
   notice.style.cssText = 'margin-top:8px;font-size:12px;color:var(--success);font-weight:600';
   notice.textContent = `✓ ${action} — +15 pts earned`;
+  card.appendChild(notice);
+}
+
+function buildLawyerLeads() {
+  const leads = [
+    { cat:'Property', title:'Tenant deposit recovery', loc:'Delhi', budget:'₹1,500', urgency:'Medium', summary:'User has rent agreement, payment receipts, and landlord messages.' },
+    { cat:'Criminal', title:'Anticipatory bail guidance', loc:'Mumbai', budget:'₹3,000', urgency:'High', summary:'Family received police call after FIR threat; user needs urgent consultation.' },
+    { cat:'Cyber Law', title:'UPI fraud complaint', loc:'Bengaluru', budget:'₹2,000', urgency:'High', summary:'User has screenshots, transaction ID, bank complaint number, and cyber portal draft.' },
+    { cat:'Family', title:'Maintenance and custody query', loc:'Lucknow', budget:'₹2,500', urgency:'Medium', summary:'User needs advice before responding to a legal notice.' }
+  ];
+  const container = document.getElementById('lawyer-leads-list');
+  container.innerHTML = leads.map(lead => `
+    <div class="lawyer-lead-card">
+      <div class="lawyer-lead-top">
+        <div>
+          <span class="badge badge-blue" style="margin-bottom:6px;display:inline-flex">${lead.cat}</span>
+          <div class="lawyer-lead-title">${lead.title}</div>
+        </div>
+        <span class="lawyer-lead-urgency ${lead.urgency === 'High' ? 'high' : ''}">${lead.urgency}</span>
+      </div>
+      <p class="lawyer-lead-summary">${lead.summary}</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;font-size:12px;color:var(--text-2)">
+        <span class="lm-tag">${lead.loc}</span><span class="lm-tag">${lead.budget}</span><span class="lm-tag">Case summary ready</span>
+      </div>
+      <div class="lawyer-lead-actions">
+        <button class="lawyer-lead-btn accept" onclick="lawyerLeadAction(this,'Accepted')">Accept Lead</button>
+        <button class="lawyer-lead-btn request" onclick="lawyerLeadAction(this,'Documents requested')">Request Documents</button>
+        <button class="lawyer-lead-btn" onclick="lawyerLeadAction(this,'Declined')">Decline</button>
+      </div>
+    </div>
+  `).join('');
+  container.dataset.built = '1';
+}
+
+function lawyerLeadAction(btn, action) {
+  const card = btn.closest('.lawyer-lead-card');
+  const oldNote = card.querySelector('.lawyer-lead-note');
+  if (oldNote) oldNote.remove();
+  const notice = document.createElement('div');
+  notice.className = 'lawyer-lead-note';
+  notice.style.cssText = 'margin-top:10px;font-size:12px;color:var(--success);font-weight:600';
+  notice.textContent = `${action}. This status is saved only for the static demo.`;
   card.appendChild(notice);
 }
 
