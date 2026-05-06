@@ -1,208 +1,203 @@
-# NyaySetu - AI-Powered Legal Access for India
+# NyaySetu
 
-NyaySetu is a static web demo for making Indian legal information easier to understand and access. It brings together an AI-style legal chat interface, legal document generation, plain-language law simplification, emergency helplines, lawyer discovery, and a law-student review ecosystem.
+NyaySetu is a beginner-friendly legal access web project for India. It includes a frontend demo for legal questions, document generation, legal text simplification, student review workflows, and lawyer discovery. It also includes a simple Node.js, Express, and SQLite backend for storing users, lawyers, legal queries, and reviews.
 
-The project is built as a frontend-only prototype, so it can be opened directly in a browser or hosted on GitHub Pages without a backend.
-
-## Live Demo File
-
-Open:
+## Live Demo
 
 ```text
-nyaysetu-complete.html
+https://pulkitsobti04-hash.github.io/codenakshatra-nyaysetu/
 ```
 
-This file contains the complete presentation-ready application experience.
-
-## Features
-
-- **AI Legal Assistant**: Ask legal questions in plain language and receive structured guidance.
-- **Role-Based Get Started Flow**: Separate onboarding paths for legal help seekers, law students, and advocates.
-- **Document Generator**: Create draft legal notices, affidavits, rent agreements, consumer complaints, RTI applications, FIR drafts, and more.
-- **Law Simplifier**: Paste legal text and get a simpler explanation with key points and next steps.
-- **Lawyer Connect Flow**: View lawyer cards, ratings, filters, reviews, and booking/send-case actions.
-- **Lawyer Network Area**: A dedicated Lawyers section for advocate dashboard, case leads, verification details, and profile submission.
-- **Student Ecosystem**: Includes student dashboard, review queue, credits, and leaderboard UI.
-- **Emergency Helplines**: Quick-access emergency contacts for police, women helpline, cyber crime, ambulance, child helpline, and senior citizens.
-- **Language Support**: English/Hindi UI switching through `translations.js`.
-- **Theme Toggle**: Dark and bright visual modes.
-- **Voice Input**: Browser speech recognition support where available.
-- **PDF Export**: Document drafts can be downloaded as PDFs using jsPDF from a CDN.
-
-## User Flows
-
-NyaySetu includes separate flows for citizens, law students, and lawyers:
-
-- **Ask a Legal Question**: Users can open AI Chat, describe their issue, choose a topic shortcut, attach evidence, and receive structured legal guidance.
-- **Get Started**: Users land on a role-selection page instead of chat. They can continue as a Legal Help Seeker, Law Student, or Advocate.
-- **Appoint or Connect With a Lawyer**: Users can open the lawyer modal from AI Chat, filter lawyers by specialization, budget, and location, then book a consultation or send case details.
-- **Join as a Student**: Law students can open the Students page, choose the Join as Student tab, enter their name, email, college, year, legal interest area, and optional enrollment number.
-- **Review as a Student**: Students can use the dashboard, review queue, and leaderboard UI to review AI responses, earn credits, track activity, and build a public ranking.
-- **Join as a Lawyer**: Advocates can open the Join as Lawyer tab and submit profile details such as name, contact information, qualification, specialization, experience, location, fees, bio, and certificate upload.
-- **Use the Lawyers Area**: Advocates can open the Lawyers navigation item to view a dashboard, case leads, verification workflow, and join-as-advocate form.
-- **Lawyer Verification Concept**: Lawyer profiles are marked as verification-based in the UI, with future scope for Bar Council ID checks and supporting document review.
-- **Generate Legal Documents**: Users can create draft legal documents and download or copy them for advocate review.
-- **Simplify Legal Text**: Users can paste complex legal text and receive a plain-language breakdown.
-- **Emergency Help**: Users can access emergency helplines directly from the navigation bar.
-
-## Project Structure
+## Folder Structure
 
 ```text
-Nyaysetu/
-|-- nyaysetu-complete.html  # Complete static demo: HTML, CSS, and app JavaScript
-|-- translations.js         # English/Hindi UI translation strings
-|-- README.md               # Project overview and usage instructions
-|-- index.html              # Earlier/reference version of the demo
-|-- .nojekyll               # Keeps GitHub Pages from running Jekyll processing
-|-- css/
-|   `-- styles.css          # Legacy/extracted stylesheet
-`-- js/
-    `-- scripts.js          # Legacy/extracted JavaScript
+NyaySetu/
+|-- Frontend/
+|   |-- index.html
+|   |-- pages/
+|   |-- assets/
+|       |-- css/
+|       |   `-- styles.css
+|       |-- js/
+|       |   |-- app.js
+|       |   `-- translations.js
+|       |-- images/
+|       `-- fonts/
+|-- backend/
+|   |-- server.js
+|   |-- routes/
+|   |-- controllers/
+|   |-- models/
+|   `-- config/
+|-- database/
+|   `-- schema.sql
+|-- index.html
+|-- README.md
+|-- package.json
+`-- .gitignore
 ```
 
-## Phase Status
+## What Was Cleaned
 
-### Phase 1 - MVP: Implemented
+- Main frontend file moved to `Frontend/index.html`.
+- CSS moved to `Frontend/assets/css/styles.css`.
+- JavaScript moved to `Frontend/assets/js/app.js`.
+- Translation file moved to `Frontend/assets/js/translations.js`.
+- Root `index.html` opens the frontend for GitHub Pages.
+- SQL schema moved to `database/schema.sql`.
+- Backend code organized into `routes`, `controllers`, `models`, and `config`.
+- Duplicate root files were removed, including old root HTML, old `css/`, old `js/`, and duplicate backend package files.
 
-- Local AI-style legal chat demo.
-- English/Hindi language selector with saved preference.
-- Category-based legal problem shortcuts.
-- Evidence upload UI for documents and images.
-- Case summary banner.
-- Connect-with-lawyer flow.
-- Static lawyer listing with filters, ratings, reviews, booking, and send-case actions.
-- Emergency helplines and legal disclaimers.
+## Frontend
 
-### Phase 2 - Growth: Demo/UI Level
+Open this file in a browser:
 
-- Document generator with local templates.
-- Copy-to-clipboard and PDF download support.
-- Case summary generation using frontend logic.
-- Voice input using browser speech recognition when available.
-- Student dashboard, review queue, and leaderboard UI.
+```text
+Frontend/index.html
+```
 
-### Phase 3 - Future Scope
+The frontend is still a static HTML, CSS, and JavaScript app. It keeps the existing NyaySetu UI and features.
 
-The current code includes placeholders or natural extension points for:
+## Backend
 
-- Smart lawyer matching.
-- Backend integration with Firebase, Node.js, or another API layer.
-- Authentication and user profiles.
-- Payments.
-- Real-time lawyer chat.
-- Case tracking.
-- Admin moderation and lawyer verification.
+The backend uses:
 
-## Setup
+- Node.js
+- Express
+- SQLite
 
-No installation is required for the static demo.
+Install dependencies from the project root:
 
-1. Clone or download this repository.
-2. Open `nyaysetu-complete.html` in a modern browser.
-3. For GitHub Pages, publish the repository and use `nyaysetu-complete.html` as the main demo file.
+```bash
+npm install
+```
 
-## Dependencies
+Start the backend:
 
-- jsPDF is loaded from a CDN for PDF generation.
-- The rest of the complete demo runs with plain HTML, CSS, and JavaScript.
-- No package manager, build step, or backend server is required.
+```bash
+npm start
+```
 
-## Browser Support
+The API runs at:
 
-- Chrome, Edge, Firefox, and Safari are supported for the core app.
-- Voice input works best in Chrome-based browsers.
-- PDF download requires the jsPDF CDN to load successfully.
+```text
+http://localhost:5000/api
+```
 
-## How To Use
+The SQLite database file is created automatically at:
 
-1. Open `nyaysetu-complete.html`.
-2. Use the top navigation to switch between Home, AI Chat, Documents, Simplifier, Students, Lawyers, About, Privacy, and Terms.
-3. Use the language selector in the navigation bar to switch between English and Hindi.
-4. Use **Ask a Question** to open AI Chat directly.
-5. Use **Get Started** to open the role-based login/onboarding page.
-6. In AI Chat, type a legal issue, select a topic shortcut, attach evidence if needed, or use voice input where supported.
-7. In Documents, choose a document type, fill in the form, then copy or download the generated draft.
-8. In Simplifier, paste legal text to receive a plain-language explanation.
-9. In Students, use the Dashboard, Review Queue, Leaderboard, Join as Student, or Join as Lawyer tabs.
-10. In Lawyers, use the Dashboard, Case Leads, Verification, or Join as Advocate tabs.
-11. Use Find Lawyers from AI Chat to filter advocates, book a consultation, or send case details.
-12. Use the emergency button in the navigation bar for quick helpline access.
+```text
+backend/data/nyaysetu.sqlite
+```
 
-## Key Components
+## API Routes
 
-### AI Chat Engine
+```text
+GET  /api/health       Check server and database status
+POST /api/users        Register a general user or student
+GET  /api/users        Fetch registered users
+POST /api/lawyers      Register a lawyer profile
+GET  /api/lawyers      Fetch lawyers
+POST /api/queries      Save a legal query
+GET  /api/queries      Fetch saved queries
+POST /api/reviews      Submit a lawyer review
+GET  /api/reviews      Fetch submitted reviews
+```
 
-- Frontend-only legal guidance demo.
-- Structured responses covering explanation, applicable law, next steps, options, time limits, and important notes.
-- Topic shortcuts for common legal issues.
-- Evidence upload UI for supporting files.
-- Lawyer connection flow after chat responses.
+## Database
 
-### Document Generator
+The SQL schema is stored in:
 
-- Local templates for common Indian legal documents.
-- Generated drafts with practical review checklists.
-- Copy and PDF download actions.
+```text
+database/schema.sql
+```
 
-### Law Simplifier
+It creates these tables:
 
-- Converts dense legal text into simpler language.
-- Highlights key takeaways and suggested actions.
-- Includes sample legal text for quick testing.
+- `users`
+- `lawyers`
+- `cases`
+- `reviews`
 
-### Student Platform
+## Example Requests
 
-- Student review queue.
-- Credit and activity display.
-- National leaderboard UI.
-- Join form for new student registrations.
+Register a student or general user:
 
-### Lawyer Platform
+```js
+fetch('http://localhost:5000/api/users', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    name: 'Asha Sharma',
+    email: 'asha@example.com',
+    phone: '+91 98765 43210',
+    role: 'student'
+  })
+});
+```
 
-- Dedicated Lawyers navigation button.
-- Advocate dashboard with consultation requests, ratings, accepted cases, and demo earnings.
-- Case leads section with category, location, budget, urgency, and structured summaries.
-- Verification section explaining Bar Council details, document review, case matching, and trusted profiles.
-- Join-as-lawyer form for advocate profile submission.
-- Specialization, experience, location, fee, bio, and certificate fields.
-- Lawyer cards with verification badges, ratings, reviews, fees, and consultation actions.
-- Filters for specialization, budget, and location.
-- Demo flow for booking a lawyer or sending case details.
+Register a lawyer:
 
-## Production Roadmap
+```js
+fetch('http://localhost:5000/api/lawyers', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    name: 'Adv. Priya Sharma',
+    email: 'priya@example.com',
+    phone: '+91 98765 43210',
+    qualification: 'LLB',
+    specialization: 'Criminal Law',
+    experience: 8,
+    location: 'Delhi',
+    fees: '1500',
+    bio: 'Handles bail, FIR, and consultation matters.'
+  })
+});
+```
 
-This demo does not call paid AI APIs directly from the browser. A production version should move sensitive and dynamic features to a backend service.
+Save a legal query:
 
-Recommended backend responsibilities:
+```js
+fetch('http://localhost:5000/api/queries', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    user_id: 1,
+    problem_text: 'My landlord is not returning my security deposit.',
+    category: 'Property'
+  })
+});
+```
 
-- AI legal response generation.
-- Authentication and authorization.
-- User profiles and chat history.
-- Document storage and case history.
-- Lawyer verification.
-- Admin moderation.
-- Payments.
-- Real-time chat and notifications.
+Submit a review:
 
-## Legal Disclaimer
+```js
+fetch('http://localhost:5000/api/reviews', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    lawyer_id: 1,
+    user_id: 1,
+    rating: 5,
+    review_text: 'Clear advice and fast response.'
+  })
+});
+```
 
-**NyaySetu is a technology platform, not a law firm.** The information provided by the demo, AI-style responses, platform flows, or student-review concepts is for educational and informational purposes only and does not constitute legal advice. Using NyaySetu does not create an attorney-client relationship. Always consult a qualified and licensed advocate for advice about a specific legal matter.
+## Main Features
 
-## Contributing
+- AI-style legal question flow.
+- Role-based get started page.
+- Join as Student form.
+- Join as Lawyer form.
+- Lawyer dashboard and lead view.
+- Document generator.
+- Legal text simplifier.
+- English/Hindi translation support.
+- Dark and bright mode UI.
+- Basic backend storage for users, lawyers, queries, and reviews.
 
-Contributions are welcome for:
+## Notes
 
-- Adding more languages.
-- Improving legal response templates.
-- Adding new document templates.
-- Enhancing UI/UX.
-- Improving accessibility.
-- Fixing bugs and performance issues.
-
-## License
-
-Copyright (c) 2026 NyaySetu. All rights reserved.
-
-## Contact
-
-For support or project inquiries, use the About page in the application.
+This is a project demo and learning build. NyaySetu is not a law firm, and the app does not provide official legal advice. Users should consult a qualified advocate for specific legal matters.

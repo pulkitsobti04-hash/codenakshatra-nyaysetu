@@ -1,0 +1,14 @@
+{
+  "name": "nyaysetu",
+  "version": "1.0.0",
+  "description": "NyaySetu frontend and backend project.",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "node backend/server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.3",
+    "sqlite3": "^5.1.7"
+  }
+}

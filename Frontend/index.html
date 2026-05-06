@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NyaySetu — AI-Powered Legal Access for India</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<link rel="stylesheet" href="assets/css/styles.css"/>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════
+     TOP NAVIGATION
+═══════════════════════════════════════ -->
+<nav id="topnav">
+  <div class="nav-logo">
+    <div class="nav-logo-icon">⚖</div>
+    NyaySetu
+  </div>
+  <div class="nav-links">
+    <button class="nav-link active" data-page="home" onclick="showPage('home')">🏠 Home</button>
+    <button class="nav-link" data-page="chat" onclick="showPage('chat')">⚖️ AI Chat</button>
+    <button class="nav-link" data-page="docs" onclick="showPage('docs')">📄 Docs</button>
+    <button class="nav-link" data-page="simplifier" onclick="showPage('simplifier')">📚 Simplify</button>
+    <button class="nav-link" data-page="citizens" onclick="showPage('citizens')">👤 Citizens</button>
+    <button class="nav-link" data-page="students" onclick="showPage('students')">🎓 Students</button>
+    <button class="nav-link" data-page="lawyers" onclick="showPage('lawyers')">⚖ Lawyers</button>
+    <button class="nav-link" data-page="about" onclick="showPage('about')">ℹ️ About Us</button>
+  </div>
+  <div class="nav-right">
+    <div class="lang-selector">
+      <label class="sr-only" for="lang-select">Select language</label>
+      <select id="lang-select" class="lang-input" title="Select language" aria-label="Select language">
+        <option value="en">🌐 English</option>
+        <option value="hi">हिंदी</option>
+      </select>
+    </div>
+    <button class="btn-nav-ghost nav-icon-btn" id="theme-toggle" type="button" title="Switch to brightness mode" aria-label="Switch to brightness mode" onclick="toggleTheme()">☀</button>
+    <button class="btn-nav-ghost nav-icon-btn" type="button" title="Emergency help" aria-label="Emergency help" onclick="toggleEmergency()">⚠</button>
+    <button class="btn-nav-solid nav-ask" onclick="showPage('chat')">Ask a Question</button>
+    <button class="btn-nav-solid nav-start" onclick="openLoginRole('seeker')">Get Started</button>
+  </div>
+</nav>
+
+<!-- Emergency panel (global, slides in under nav) -->
+<div id="emergency-panel" class="emergency-panel" aria-hidden="true" style="display:none;position:fixed;top:var(--nav-height);left:0;right:0;z-index:900;margin:0;border-radius:0;border-left:none;border-right:none;border-top:none;">
+  <div class="emergency-title">🚨 Emergency Helplines — Tap to Call Immediately</div>
+  <div class="helplines-grid" id="helplines-grid"></div>
+  <div class="immediate-steps">
+    <strong>Immediate Steps:</strong> Stay calm · Move to safety · Call the relevant helpline · Document everything · Do NOT delete any evidence
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     HOME PAGE
+═══════════════════════════════════════ -->
+<div id="page-home" class="page active">
+  <!-- Hero -->
+  <section class="home-hero">
+    <div class="home-hero-inner">
+    <div class="home-eyebrow">
+      AI-Powered <span>·</span> Legal Access <span>·</span> India
+    </div>
+    <h1 class="home-h1">
+      <span class="home-h1-line">Justice</span>
+      <span class="home-h1-line">should not depend</span>
+      <span class="home-h1-line">on <em>who you know.</em></span>
+    </h1>
+    <p class="home-sub">NyaySetu bridges the gap between people and the law. Ask legal questions in plain language — English, Hindi, or any language — powered by AI.</p>
+    <div class="home-actions">
+      <button class="btn-hero-primary hero-ask" onclick="showPage('chat')">Ask a Question</button>
+      <button class="btn-hero-ghost hero-start" onclick="openLoginRole('seeker')">Get Started</button>
+    </div>
+    <div class="home-trust">
+      <span>🔒 No signup required</span>
+      <span>Hindi, Urdu &amp; more languages</span>
+      <span>12,400+ queries resolved</span>
+    </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <div class="stats-bar">
+    <div class="stat-item"><div class="stat-num">12,400+</div><div class="stat-label">Legal queries resolved</div></div>
+    <div class="stat-item"><div class="stat-num">840+</div><div class="stat-label">Law students onboarded</div></div>
+    <div class="stat-item"><div class="stat-num">3,600+</div><div class="stat-label">Documents generated</div></div>
+    <div class="stat-item"><div class="stat-num">98%</div><div class="stat-label">User satisfaction</div></div>
+  </div>
+
+  <!-- Process -->
+  <div id="how">
+    <div class="section">
+      <div class="section-label">Process</div>
+      <h2 class="section-h2">A system built for clarity</h2>
+      <p class="section-sub">Every query passes through AI analysis and human review — fast and reliable.</p>
+      <div class="process-steps">
+        <div class="process-step" data-num="1" role="button" tabindex="0" aria-label="Open AI Chat" onclick="openProcessStep('chat')" onkeydown="handleProcessStepKey(event, 'chat')">
+          <div class="step-icon">🧑‍💼</div>
+          <div class="step-title">You Ask</div>
+          <div class="step-desc">Submit your legal question in English, Hindi, Urdu, or any language. No legal knowledge needed.</div>
+          <div class="step-role">Citizen</div>
+        </div>
+        <div class="process-step" data-num="2" role="button" tabindex="0" aria-label="Open AI Chat" onclick="openProcessStep('chat')" onkeydown="handleProcessStepKey(event, 'chat')">
+          <div class="step-icon">🤖</div>
+          <div class="step-title">AI Analyses</div>
+          <div class="step-desc">Legal AI identifies applicable laws, IPC sections, and precedents instantly.</div>
+          <div class="step-role">NyaySetu AI</div>
+        </div>
+        <div class="process-step" data-num="3" role="button" tabindex="0" aria-label="Open Join as Student" onclick="openProcessStep('student-join')" onkeydown="handleProcessStepKey(event, 'student-join')">
+          <div class="step-icon">🎓</div>
+          <div class="step-title">Student Reviews</div>
+          <div class="step-desc">A verified law student reviews the output and adds professional context.</div>
+          <div class="step-role">Law Student</div>
+        </div>
+        <div class="process-step" data-num="4" role="button" tabindex="0" aria-label="Open Join as Lawyer" onclick="openProcessStep('lawyer-join')" onkeydown="handleProcessStepKey(event, 'lawyer-join')">
+          <div class="step-icon">⚖️</div>
+          <div class="step-title">Lawyer Escalates</div>
+          <div class="step-desc">Complex cases routed to licensed advocates — faster and affordable.</div>
+          <div class="step-role">Advocate</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Capabilities -->
+  <div class="home-band">
+    <div class="section">
+      <div class="section-label">Capabilities</div>
+      <h2 class="section-h2">Every legal need, covered</h2>
+      <div class="cap-grid">
+        <div class="cap-card" role="button" tabindex="0" onclick="showPage('chat')" onkeydown="handleCardKey(event, 'chat')">
+          <div class="cap-card-icon">🤖</div>
+          <div class="cap-card-title">AI Legal Assistant</div>
+          <div class="cap-card-desc">Ask anything in plain language — FIR procedures, property disputes, consumer rights. AI identifies applicable laws in seconds.</div>
+          <div class="cap-card-link">Open Chat →</div>
+        </div>
+        <div class="cap-card" role="button" tabindex="0" onclick="showPage('docs')" onkeydown="handleCardKey(event, 'docs')">
+          <div class="cap-card-icon">📄</div>
+          <div class="cap-card-title">Document Generator</div>
+          <div class="cap-card-desc">Generate legally accurate documents in minutes — legal notices, affidavits, rent agreements, consumer complaints, RTI applications.</div>
+          <div class="cap-card-link">Generate Now →</div>
+        </div>
+        <div class="cap-card" role="button" tabindex="0" onclick="showPage('simplifier')" onkeydown="handleCardKey(event, 'simplifier')">
+          <div class="cap-card-icon">📚</div>
+          <div class="cap-card-title">Law Simplifier</div>
+          <div class="cap-card-desc">Paste any legal text — court order, notice, contract, government circular — get a plain language breakdown with actionable steps.</div>
+          <div class="cap-card-link">Try Simplifier →</div>
+        </div>
+        <div class="cap-card" role="button" tabindex="0" onclick="showPage('citizens')" onkeydown="handleCardKey(event, 'citizens')">
+          <div class="cap-card-icon">👤</div>
+          <div class="cap-card-title">Citizen Case Desk</div>
+          <div class="cap-card-desc">Citizens can log in, submit case facts, add urgency and evidence details, then track the next legal review step.</div>
+          <div class="cap-card-link">Submit a Case →</div>
+        </div>
+        <div class="cap-card" role="button" tabindex="0" onclick="showPage('students')" onkeydown="handleCardKey(event, 'students')">
+          <div class="cap-card-icon">🎓</div>
+          <div class="cap-card-title">Student Ecosystem</div>
+          <div class="cap-card-desc">Law students earn credits reviewing queries, build real portfolios, and get ranked on India's legal AI professional leaderboard.</div>
+          <div class="cap-card-link">Join as Student →</div>
+        </div>
+        <div class="cap-card" role="button" tabindex="0" onclick="openProcessStep('lawyer-join')" onkeydown="handleProcessStepKey(event, 'lawyer-join')">
+          <div class="cap-card-icon">⚖</div>
+          <div class="cap-card-title">Lawyer Network</div>
+          <div class="cap-card-desc">Advocates can join the NyaySetu network, submit verification details, and receive organized case leads from citizens.</div>
+          <div class="cap-card-link">Join as Lawyer →</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Advantage -->
+  <div class="adv-section">
+    <div class="section">
+      <div class="section-label">Advantage</div>
+      <h2 class="section-h2">Why NyaySetu exists</h2>
+      <p class="section-sub">Traditional legal help is slow, expensive, and inaccessible. We built NyaySetu to change all three.</p>
+      <div class="adv-list">
+        <div class="adv-item">
+          <div class="adv-num">01</div>
+          <div>
+            <div class="adv-title">Fast — minutes, not weeks</div>
+            <div class="adv-desc">Traditional legal consultation can take days to begin. NyaySetu provides an intelligent first response in under 30 seconds, with a reviewed answer within hours.</div>
+            <div class="adv-badge">⟳ &lt; 30 second initial response</div>
+          </div>
+        </div>
+        <div class="adv-item">
+          <div class="adv-num">02</div>
+          <div>
+            <div class="adv-title">Affordable — not ₹5,000/hour</div>
+            <div class="adv-desc">Legal help in India is prohibitively expensive. NyaySetu is free to start — and premium plans cost less than a single traditional consultation.</div>
+            <div class="adv-badge">₹ Fraction of traditional cost</div>
+          </div>
+        </div>
+        <div class="adv-item">
+          <div class="adv-num">03</div>
+          <div>
+            <div class="adv-title">Accessible — anywhere, anyone</div>
+            <div class="adv-desc">Whether you're in Delhi or a small town in Bihar — if you have a phone, you have access to legal guidance. No office visits, no appointments.</div>
+            <div class="adv-badge">📱 Any device, any location</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <div class="cta-inner">
+      <h2 class="cta-h2">Your rights matter. Know them.</h2>
+      <p class="cta-sub">Ask your first legal question for free. No signup required to begin.</p>
+      <div class="cta-actions">
+        <button class="btn-hero-primary cta-start-free" onclick="showPage('chat')">Start for Free â†’</button>
+        <button class="btn-hero-ghost hero-start" onclick="openLoginRole('seeker')">Get Started</button>
+        <button class="btn-hero-ghost cta-citizen" onclick="showPage('citizens')">Submit a Case</button>
+        <button class="btn-hero-ghost cta-student" onclick="openStudentTab('join')">Join as Student</button>
+        <button class="btn-hero-ghost cta-lawyer" onclick="openLawyerTab('join')">Join as Lawyer</button>
+      </div>
+      <div class="cta-trust">
+        <span>No signup required</span>
+        <span>Hindi, Urdu &amp; more languages</span>
+        <span>12,400+ queries resolved</span>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand-block">
+        <div class="footer-brand"><div class="footer-brand-icon">⚖</div> NyaySetu</div>
+        <div class="footer-tagline">AI-Powered Legal Access for India</div>
+      </div>
+      <div class="footer-links">
+        <button class="footer-link" onclick="showPage('about')">About Us</button>
+        <button class="footer-link" onclick="showPage('privacy')">Privacy Policy</button>
+        <button class="footer-link" onclick="showPage('terms')">Terms of Use</button>
+        <button class="footer-link" onclick="showPage('terms')">Legal Disclaimer</button>
+      </div>
+    </div>
+    <div class="footer-copy">© 2026 NyaySetu · Not a substitute for legal advice</div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════════
+     LOGIN / ONBOARDING PAGE
+═══════════════════════════════════════ -->
+<div id="page-login" class="page">
+  <div class="login-page">
+    <div class="login-header">
+      <div class="section-label">Get Started</div>
+      <h1 class="login-h1">Choose how you want to use NyaySetu.</h1>
+      <p class="login-sub">Continue as someone seeking legal help, join the student review ecosystem, or sign in as an advocate. Each path keeps the same guided NyaySetu experience.</p>
+    </div>
+
+    <div class="login-grid">
+      <div class="role-panel">
+        <div class="role-panel-title">Select your role</div>
+        <div class="role-options">
+          <button class="role-option active" data-role="seeker" onclick="selectLoginRole('seeker')">
+            <span class="role-icon">?</span>
+            <span>
+              <span class="role-name">Legal Help Seeker</span>
+              <span class="role-desc">Ask questions, create documents, and connect with advocates.</span>
+            </span>
+          </button>
+          <button class="role-option" data-role="student" onclick="selectLoginRole('student')">
+            <span class="role-icon">S</span>
+            <span>
+              <span class="role-name">Law Student</span>
+              <span class="role-desc">Review AI answers, earn credits, and build a legal portfolio.</span>
+            </span>
+          </button>
+          <button class="role-option" data-role="lawyer" onclick="selectLoginRole('lawyer')">
+            <span class="role-icon">A</span>
+            <span>
+              <span class="role-name">Advocate</span>
+              <span class="role-desc">Manage consultations and submit a verified lawyer profile.</span>
+            </span>
+          </button>
+        </div>
+        <div class="login-note">When the local backend is running, registrations are stored in SQLite. Otherwise, the page continues as a browser demo.</div>
+      </div>
+
+      <div class="login-form-panel">
+        <div class="login-form active" id="login-seeker">
+          <div class="login-form-title">Continue as Legal Help Seeker</div>
+          <div class="login-form-sub">Use this path if you need legal information, document drafts, or a lawyer consultation.</div>
+          <div class="form-group"><label class="form-label" for="seeker-name">Full Name</label><input class="form-input" id="seeker-name" name="name" type="text" placeholder="Your full name" autocomplete="name"/></div>
+          <div class="form-group"><label class="form-label" for="seeker-email">Email Address</label><input class="form-input" id="seeker-email" name="email" type="email" placeholder="you@example.com" autocomplete="email"/></div>
+          <div class="form-group"><label class="form-label" for="seeker-phone">Phone Number</label><input class="form-input" id="seeker-phone" name="phone" type="tel" placeholder="+91 98765 43210" autocomplete="tel"/></div>
+          <div class="form-group">
+            <label class="form-label" for="seeker-need">What do you need help with?</label>
+            <select class="form-select" id="seeker-need">
+              <option value="">Select an option</option>
+              <option>Ask a legal question</option>
+              <option>Generate a legal document</option>
+              <option>Understand legal text</option>
+              <option>Connect with a lawyer</option>
+            </select>
+          </div>
+          <div class="login-actions">
+            <button class="btn-join" onclick="loginSubmit(this, 'seeker')">Continue</button>
+            <button class="btn-login-secondary" onclick="showPage('chat')">Ask Without Login</button>
+          </div>
+        </div>
+
+        <div class="login-form" id="login-student">
+          <div class="login-form-title">Student Login</div>
+          <div class="login-form-sub">For law students who review queries, track credits, and appear on the leaderboard.</div>
+          <div class="form-group"><label class="form-label" for="student-login-email">Email Address</label><input class="form-input" id="student-login-email" type="email" placeholder="college@example.com" autocomplete="email"/></div>
+          <div class="form-group"><label class="form-label" for="student-login-password">Password</label><input class="form-input" id="student-login-password" type="password" placeholder="Enter password" autocomplete="current-password"/></div>
+          <div class="login-actions">
+            <button class="btn-join" onclick="loginSubmit(this, 'student')">Login as Student</button>
+            <button class="btn-login-secondary" onclick="openStudentTab('join')">Join as Student</button>
+          </div>
+        </div>
+
+        <div class="login-form" id="login-lawyer">
+          <div class="login-form-title">Advocate Login</div>
+          <div class="login-form-sub">For verified lawyers who want to receive case leads and manage consultations.</div>
+          <div class="form-group"><label class="form-label" for="lawyer-login-email">Email Address</label><input class="form-input" id="lawyer-login-email" type="email" placeholder="lawyer@example.com" autocomplete="email"/></div>
+          <div class="form-group"><label class="form-label" for="lawyer-login-enrollment">Bar Council / Enrollment No.</label><input class="form-input" id="lawyer-login-enrollment" type="text" placeholder="Enrollment number"/></div>
+          <div class="form-group"><label class="form-label" for="lawyer-login-password">Password</label><input class="form-input" id="lawyer-login-password" type="password" placeholder="Enter password" autocomplete="current-password"/></div>
+          <div class="login-actions">
+            <button class="btn-join" onclick="loginSubmit(this, 'lawyer')">Login as Advocate</button>
+            <button class="btn-login-secondary" onclick="openLawyerTab('join')">Join as Advocate</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CHAT PAGE -->
+<div id="page-chat" class="page">
+  <!-- Sidebar -->
+  <aside class="chat-sidebar">
+    <div class="sidebar-header">
+      <span class="sidebar-header-title">Topics</span>
+      <button class="sidebar-toggle" onclick="toggleSidebar()">+</button>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Common Questions</div>
+      <button class="topic-pill" onclick="sendTopic('How to file an FIR')">📋 How to file an FIR</button>
+      <button class="topic-pill" onclick="sendTopic('Security deposit dispute with landlord')">🏠 Security deposit dispute</button>
+      <button class="topic-pill" onclick="sendTopic('What are my rights when arrested by police')">🚔 Rights on arrest</button>
+      <button class="topic-pill" onclick="sendTopic('How to file a consumer complaint')">🛒 Consumer complaint</button>
+      <button class="topic-pill" onclick="sendTopic('What is Section 498A IPC')">📖 Section 498A IPC</button>
+      <button class="topic-pill" onclick="sendTopic('How to apply for anticipatory bail')">⚖️ Anticipatory bail</button>
+      <button class="topic-pill" onclick="sendTopic('Divorce procedure in India')">👨‍👩‍👧 Divorce procedure</button>
+      <button class="topic-pill" onclick="sendTopic('How to file an RTI application')">📄 RTI application</button>
+      <button class="topic-pill" onclick="sendTopic('My employer has not paid my salary what can I do')">💼 Unpaid salary</button>
+      <button class="topic-pill" onclick="sendTopic('Property registration process India')">🏡 Property registration</button>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Criminal Law</div>
+      <button class="topic-pill" onclick="sendTopic('Bail provisions under CrPC')">⛓ Bail provisions CrPC</button>
+      <button class="topic-pill" onclick="sendTopic('What are cognizable offences in India')">📘 Cognizable offences</button>
+      <button class="topic-pill" onclick="sendTopic('Rights of accused person in India')">🛡 Rights of accused</button>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Family &amp; Property</div>
+      <button class="topic-pill" onclick="sendTopic('Property rights of women in India')">👩‍⚖️ Women property rights</button>
+      <button class="topic-pill" onclick="sendTopic('Child custody laws in India')">👶 Child custody India</button>
+    </div>
+
+    <div class="lang-note" id="lang-note">Use the top language selector for UI and response language.</div>
+  </aside>
+
+  <!-- Main chat area -->
+  <div class="chat-main">
+    <!-- Topbar -->
+    <div class="chat-topbar">
+      <div class="chat-topbar-left">
+        <div class="chat-bot-avatar">⚖</div>
+        <div>
+          <div class="chat-bot-name" id="chat-bot-name">NyaySetu AI</div>
+          <div class="chat-bot-status"><div class="online-dot"></div><span id="chat-status">Online — responds in seconds</span></div>
+        </div>
+      </div>
+      <div class="chat-topbar-actions">
+        <button class="chat-action-btn" onclick="newChat()">New Chat</button>
+        <button class="chat-action-btn" onclick="showPage('docs')">📄 Documents</button>
+        <button class="chat-action-btn" onclick="openLawyerModal(null)" style="border-color:var(--blue);color:var(--blue)">👨‍⚖️ Find Lawyers</button>
+      </div>
+    </div>
+
+    <!-- Messages -->
+    <div class="chat-messages" id="chat-messages">
+      <!-- Welcome -->
+      <div class="chat-welcome">
+        <div class="chat-welcome-icon">⚖</div>
+        <div class="chat-welcome-title" id="welcome-title">NyaySetu AI</div>
+        <p class="chat-welcome-sub" id="welcome-sub">Your personal legal assistant. Simple, fast, and reliable.</p>
+        <div class="quick-actions">
+          <button class="quick-action-btn" onclick="sendTopic('Generate a legal notice for me')">📄 Generate Legal Notice</button>
+          <button class="quick-action-btn" onclick="sendTopic('What are my rights as a citizen of India')">🛡️ Check My Rights</button>
+          <button class="quick-action-btn" onclick="sendTopic('How do I file a complaint against a company')">⚖️ File Complaint</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Input area -->
+    <div class="chat-input-wrap">
+      <!-- Evidence upload strip -->
+      <div id="evidence-strip" class="evidence-strip" role="button" tabindex="0" onclick="document.getElementById('evidence-input').click()" onkeydown="handleEvidenceKey(event)">
+        <span>📎</span> <span id="evidence-label">Attach evidence (documents, images)</span>
+      </div>
+      <label class="sr-only" for="evidence-input">Attach evidence documents or images</label>
+      <input type="file" id="evidence-input" style="display:none" multiple accept="image/*,.pdf,.doc,.docx" onchange="handleEvidence(event)"/>
+
+      <div class="chat-input-row">
+        <textarea
+          class="chat-textarea"
+          id="chat-input"
+          rows="1"
+          data-placeholder-key="chat-ph"
+          placeholder="Describe your legal problem..."
+          aria-label="Describe your legal problem"
+          onkeydown="handleKey(event)"
+          oninput="autoResize(this)"
+        ></textarea>
+        <button class="input-btn voice" onclick="startVoice()" title="Voice input" aria-label="Voice input">🎤</button>
+        <button class="input-btn send" id="send-btn" onclick="sendMessage()" aria-label="Send message" disabled>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+      </div>
+      <div class="chat-disclaimer" id="chat-disclaimer">⚠️ Guidance only. Consult a lawyer for serious matters.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     LAWYER MODAL
+═══════════════════════════════════════ -->
+<div id="lawyer-modal" class="lm-overlay" onclick="handleModalClick(event)">
+  <div class="lm-panel">
+    <div class="lm-head">
+      <div class="lm-head-left">
+        <span class="lm-head-icon">⚖️</span>
+        <span class="lm-head-title">Connect with a Lawyer</span>
+        <span id="lm-case-badge" class="lm-head-badge" style="display:none"></span>
+      </div>
+      <button class="lm-close" onclick="closeLawyerModal()" aria-label="Close lawyer modal">✕</button>
+    </div>
+    <div class="lm-filters">
+      <label class="sr-only" for="lm-spec">Filter lawyers by specialization</label>
+      <select class="lm-select" id="lm-spec" onchange="renderLawyerCards()">
+        <option value="all">All Specializations</option>
+        <option value="Criminal">Criminal Law</option>
+        <option value="Cybercrime">Cybercrime</option>
+        <option value="Family">Family / Matrimonial</option>
+        <option value="Property">Property</option>
+        <option value="Consumer">Consumer</option>
+        <option value="Employment">Employment</option>
+      </select>
+      <label class="sr-only" for="lm-budget">Filter lawyers by budget</label>
+      <select class="lm-select" id="lm-budget" onchange="renderLawyerCards()">
+        <option value="9999">Any Budget</option>
+        <option value="1500">Under ₹1,500</option>
+        <option value="2500">Under ₹2,500</option>
+        <option value="4000">Under ₹4,000</option>
+      </select>
+      <label class="sr-only" for="lm-loc">Filter lawyers by location</label>
+      <select class="lm-select" id="lm-loc" onchange="renderLawyerCards()">
+        <option value="all">All Locations</option>
+        <option value="Delhi">Delhi</option>
+        <option value="Mumbai">Mumbai</option>
+        <option value="Bangalore">Bangalore</option>
+        <option value="Hyderabad">Hyderabad</option>
+        <option value="Chennai">Chennai</option>
+      </select>
+    </div>
+    <div id="lm-card-list" class="lm-cards"></div>
+    <p class="lm-foot">⚠️ NyaySetu connects you with lawyers for consultation. It does not act as a law firm.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     DOCUMENTS PAGE
+═══════════════════════════════════════ -->
+<div id="page-docs" class="page">
+  <div class="docs-page">
+    <div class="docs-header">
+      <div class="section-label">Document Generator</div>
+      <h1 class="docs-h1">Generate legal documents in minutes</h1>
+      <p class="docs-sub">AI-powered, legally accurate templates for every common Indian legal need. Fill in your details — ready to use in under 60 seconds.</p>
+    </div>
+
+    <div class="doc-type-tabs" id="doc-type-tabs">
+      <button class="doc-tab active" data-type="legal-notice" onclick="selectDocType(this,'legal-notice')">📬 Legal Notice</button>
+      <button class="doc-tab" data-type="affidavit" onclick="selectDocType(this,'affidavit')">📜 Affidavit</button>
+      <button class="doc-tab" data-type="rent" onclick="selectDocType(this,'rent')">🏠 Rent Agreement</button>
+      <button class="doc-tab" data-type="consumer" onclick="selectDocType(this,'consumer')">⚠️ Consumer Complaint</button>
+      <button class="doc-tab" data-type="rti" onclick="selectDocType(this,'rti')">📋 RTI Application</button>
+      <button class="doc-tab" data-type="bail" onclick="selectDocType(this,'bail')">⚖️ Bail Application</button>
+      <button class="doc-tab" data-type="fir" onclick="selectDocType(this,'fir')">🚨 FIR Draft</button>
+    </div>
+
+    <div class="docs-grid">
+      <div class="docs-form-panel">
+        <div class="docs-form-title" id="doc-form-title">📬 Legal Notice Details</div>
+        <div id="doc-form-fields"><!-- injected by JS --></div>
+        <button class="btn-generate" id="btn-generate" onclick="generateDocument()">✦ Generate Document</button>
+      </div>
+      <div class="docs-preview-panel">
+        <div class="docs-preview-title">
+          Document Preview
+          <div class="docs-preview-actions">
+            <button class="btn-copy" onclick="copyDoc(this)">📋 Copy</button>
+            <button class="btn-pdf" onclick="downloadPDF()">📄 Download PDF</button>
+          </div>
+        </div>
+        <div id="doc-preview" class="docs-preview-area">
+          <div class="docs-preview-empty">
+            <div style="font-size:32px">📄</div>
+            Fill in the form on the left<br>and click <strong>"Generate Document"</strong>
+          </div>
+        </div>
+        <div class="docs-disclaimer">⚠️ AI-generated documents are drafts for guidance only. Have a licensed advocate review before filing in court.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     SIMPLIFIER PAGE
+═══════════════════════════════════════ -->
+<div id="page-simplifier" class="page">
+  <div class="simp-page">
+    <div class="section-label">Law Simplifier</div>
+    <h1 class="simp-h1">Understand any legal text instantly</h1>
+    <p class="simp-sub">Paste a court order, legal notice, contract clause, IPC section, or government circular — get a plain-language breakdown with actionable steps in seconds.</p>
+
+    <div class="simp-samples">
+      <span style="font-size:13px;color:var(--text-2);margin-right:4px;">Try a sample:</span>
+      <button class="simp-sample" onclick="loadSample('ipc420')">📖 IPC Section 420</button>
+      <button class="simp-sample" onclick="loadSample('notice')">📬 Legal Notice</button>
+      <button class="simp-sample" onclick="loadSample('court')">⚖ Court Order</button>
+      <button class="simp-sample" onclick="loadSample('contract')">📋 Contract Clause</button>
+      <button class="simp-sample" onclick="loadSample('rti')">📄 RTI Reply</button>
+    </div>
+
+    <div class="simp-grid">
+      <div class="simp-panel">
+        <div class="simp-panel-title">
+          📥 Legal Text Input
+          <span id="simp-word-count" class="simp-word-count">0 words</span>
+        </div>
+        <label class="sr-only" for="simp-input">Paste legal text to simplify</label>
+        <textarea class="simp-textarea" id="simp-input" placeholder="Paste any legal text here — court order, legal notice, contract clause, IPC / CrPC section, government circular, FIR content...
+
+Example:
+&quot;Whoever cheats and thereby dishonestly induces the person deceived to deliver any property to any person, or to make, alter or destroy the whole or any part of a valuable security... shall be punished with imprisonment of either description for a term which may extend to seven years, and shall also be liable to fine.&quot; (Section 420 IPC)" aria-label="Paste legal text to simplify" oninput="updateWordCount()"></textarea>
+        <div class="simp-actions">
+          <button class="simp-btn-clear" onclick="clearSimp()">Clear</button>
+          <button class="simp-btn-go" id="simp-btn" onclick="simplifyText()">✦ Simplify →</button>
+        </div>
+      </div>
+      <div class="simp-panel">
+        <div class="simp-panel-title">
+          📤 Plain English Simplified
+          <button class="btn-copy" onclick="copySimp()" style="font-size:11px">📋 Copy</button>
+        </div>
+        <div id="simp-output" class="simp-output">
+          <div class="simp-output-empty">
+            <div style="font-size:32px">⚖️</div>
+            Your plain-language explanation<br>will appear here
+          </div>
+        </div>
+        <div id="simp-meta" style="font-size:11px;color:var(--text-3);margin-top:6px;display:flex;justify-content:space-between">
+          <span id="simp-time">0.0s</span>
+          <span id="simp-out-words">0 words read</span>
+        </div>
+        <button class="simp-btn-clear" style="margin-top:8px;width:100%" onclick="reanalyse()">Re-analyse</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CITIZENS PAGE -->
+<div id="page-citizens" class="page">
+  <div class="citizens-page" id="citizens-page-shell">
+    <div class="section-label">Citizen Case Desk</div>
+    <h1 class="citizens-h1">Submit your case directly to NyaySetu.</h1>
+    <p class="citizens-sub">A dedicated citizen workspace for logging in, preparing a structured case brief, and sending facts, urgency, location, and evidence details for review.</p>
+
+    <div class="citizen-hero-grid">
+      <div class="citizen-main">
+        <div class="citizen-path">
+          <div class="citizen-path-item">
+            <div class="citizen-path-icon">ID</div>
+            <div>
+              <div class="citizen-path-title">Login first</div>
+              <p class="citizen-path-copy">Use your citizen ID or email and password before the case form opens.</p>
+            </div>
+          </div>
+          <div class="citizen-path-item">
+            <div class="citizen-path-icon">01</div>
+            <div>
+              <div class="citizen-path-title">Build the brief</div>
+              <p class="citizen-path-copy">Add your case type, city, timeline, urgency, and supporting documents.</p>
+            </div>
+          </div>
+          <div class="citizen-path-item">
+            <div class="citizen-path-icon">02</div>
+            <div>
+              <div class="citizen-path-title">Send for review</div>
+              <p class="citizen-path-copy">NyaySetu prepares the matter for AI triage, student review, or advocate routing.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="citizen-lock-panel" id="citizen-lock-panel">
+          <div class="citizen-lock-icon">🔐</div>
+          <div>
+            <div class="citizen-lock-title">Citizen login required</div>
+            <p class="citizen-lock-copy">The case submission workspace opens after ID and password verification on this page.</p>
+          </div>
+        </div>
+
+        <div class="citizen-case-workspace" id="citizen-case-workspace" style="display:none">
+          <div class="citizen-submit-card">
+            <div class="join-form-title">Submit Your Case</div>
+            <div class="join-form-sub">Create a clear intake brief so the next reviewer can understand your facts without confusion.</div>
+
+            <div class="citizen-form-grid">
+              <div class="form-group"><label class="form-label" for="citizen-full-name">Full Name</label><input class="form-input" id="citizen-full-name" type="text" placeholder="Your full name" autocomplete="name"/></div>
+              <div class="form-group"><label class="form-label" for="citizen-phone">Phone Number</label><input class="form-input" id="citizen-phone" type="tel" placeholder="+91 98765 43210" autocomplete="tel"/></div>
+              <div class="form-group"><label class="form-label" for="citizen-case-title">Case Title</label><input class="form-input" id="citizen-case-title" type="text" placeholder="e.g. Landlord not returning deposit"/></div>
+              <div class="form-group">
+                <label class="form-label" for="citizen-case-category">Case Category</label>
+                <select class="form-select" id="citizen-case-category">
+                  <option value="">Select category</option>
+                  <option>Consumer</option><option>Property</option><option>Family</option><option>Criminal</option>
+                  <option>Cybercrime</option><option>Employment</option><option>General</option>
+                </select>
+              </div>
+              <div class="form-group"><label class="form-label" for="citizen-case-location">City / State</label><input class="form-input" id="citizen-case-location" type="text" placeholder="Delhi, Delhi"/></div>
+              <div class="form-group">
+                <label class="form-label" for="citizen-case-urgency">Urgency</label>
+                <select class="form-select" id="citizen-case-urgency">
+                  <option value="">Select urgency</option>
+                  <option>Low - general guidance</option><option>Medium - action needed soon</option><option>High - deadline, police, money, eviction, or safety risk</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="citizen-case-language">Preferred Language</label>
+                <select class="form-select" id="citizen-case-language">
+                  <option>English</option><option>Hindi</option><option>Urdu</option><option>Bengali</option><option>Tamil</option><option>Telugu</option><option>Marathi</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="citizen-case-budget">Consultation Budget</label>
+                <select class="form-select" id="citizen-case-budget">
+                  <option value="">Select budget</option>
+                  <option>Free first guidance only</option><option>Under ₹1,000</option><option>₹1,000 - ₹2,500</option><option>₹2,500 - ₹5,000</option><option>Flexible</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group"><label class="form-label" for="citizen-case-summary">Explain Your Case</label><textarea class="form-textarea" id="citizen-case-summary" rows="6" placeholder="Write the timeline, people involved, what happened, what documents you have, and what help you need."></textarea></div>
+            <div class="form-group"><label class="form-label" for="citizen-case-evidence">Upload Evidence <span style="font-weight:400;color:var(--text-3)">(UI only)</span></label><input class="form-input" id="citizen-case-evidence" type="file" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"/></div>
+            <label class="citizen-consent"><input id="citizen-case-consent" type="checkbox"/> I confirm that the details submitted are accurate to the best of my knowledge.</label>
+
+            <button class="btn-join" onclick="citizenCaseSubmit(this)">Submit Case for Review</button>
+            <div class="form-agree">NyaySetu provides legal information and review routing, not a lawyer-client relationship. Urgent danger should be handled through emergency services immediately.</div>
+          </div>
+
+          <div class="citizen-summary-card">
+            <div class="citizen-summary-head">
+              <span class="badge badge-blue">Live Brief</span>
+              <span id="citizen-session-mini">Logged in</span>
+            </div>
+            <div class="citizen-summary-title" id="citizen-live-title">Case brief waiting</div>
+            <div class="citizen-summary-meta" id="citizen-live-meta">Complete the form to preview category, urgency, and location.</div>
+            <div class="citizen-status-list">
+              <div class="citizen-status-item active"><span>1</span> Citizen submitted facts</div>
+              <div class="citizen-status-item"><span>2</span> AI triage prepares a summary</div>
+              <div class="citizen-status-item"><span>3</span> Student or lawyer review begins</div>
+            </div>
+            <div class="docs-disclaimer">Keep original documents, screenshots, notices, IDs, payment proofs, and complaint numbers ready. Do not delete evidence after submission.</div>
+            <div id="citizen-submitted-list" class="citizen-submitted-list"></div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="citizen-login-card">
+        <div id="citizen-login-form">
+          <div class="join-form-title">Citizen Login</div>
+          <div class="join-form-sub">Enter your citizen ID or email and password to open case submission.</div>
+          <div class="form-group"><label class="form-label" for="citizen-login-id">Citizen ID / Email</label><input class="form-input" id="citizen-login-id" type="text" placeholder="citizen@example.com" autocomplete="username"/></div>
+          <div class="form-group"><label class="form-label" for="citizen-login-password">Password</label><input class="form-input" id="citizen-login-password" type="password" placeholder="Enter password" autocomplete="current-password"/></div>
+          <button class="btn-join" onclick="citizenLogin(this)">Login & Open Case Form</button>
+        </div>
+
+        <div id="citizen-session-panel" class="citizen-session-panel" style="display:none">
+          <div class="citizen-session-avatar">C</div>
+          <div class="citizen-session-name" id="citizen-session-name">Citizen</div>
+          <div class="citizen-session-id" id="citizen-session-id">Logged in</div>
+          <div class="citizen-session-grid">
+            <div><strong>0</strong><span>Submitted</span></div>
+            <div><strong>24h</strong><span>Review window</span></div>
+          </div>
+          <button class="btn-login-secondary" onclick="citizenLogout()">Switch Citizen</button>
+        </div>
+      </aside>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     STUDENTS PAGE
+═══════════════════════════════════════ -->
+<div id="page-students" class="page">
+  <div class="students-page">
+    <div class="section-label">Student Ecosystem</div>
+    <h1 class="students-h1">Learn by doing. Earn while practicing.</h1>
+    <p class="students-sub">Review real legal queries, build a professional portfolio, and get ranked on India's premier legal AI platform.</p>
+
+    <div class="students-tabs">
+      <button class="students-tab active" onclick="studTab(this,'dashboard')">📊 Dashboard</button>
+      <button class="students-tab" onclick="studTab(this,'queue')">✅ Review Queue</button>
+      <button class="students-tab" onclick="studTab(this,'leaderboard')">🏆 Leaderboard</button>
+      <button class="students-tab" onclick="studTab(this,'join')">🎓 Join as Student</button>
+    </div>
+
+    <!-- Dashboard tab -->
+    <div id="stud-dashboard" class="stud-tab-content">
+      <div class="dashboard-stats">
+        <div class="dash-stat"><div class="dash-stat-num">47</div><div class="dash-stat-label">Cases Reviewed</div><div class="dash-stat-delta">↑ +12 this week</div></div>
+        <div class="dash-stat"><div class="dash-stat-num">94%</div><div class="dash-stat-label">Accuracy Rate</div><div class="dash-stat-delta">↑ +2% this month</div></div>
+        <div class="dash-stat"><div class="dash-stat-num">₹2.4k</div><div class="dash-stat-label">Total Earned</div><div class="dash-stat-delta">↑ ₹480 this week</div></div>
+        <div class="dash-stat"><div class="dash-stat-num">#7</div><div class="dash-stat-label">National Rank</div><div class="dash-stat-delta">↑ +3 positions</div></div>
+      </div>
+      <h3 style="font-size:14px;font-weight:600;color:var(--navy);margin-bottom:12px">Recent Activity</h3>
+      <div class="activity-list">
+        <div class="activity-item"><div class="activity-dot approved"></div><div class="activity-text"><strong>Approved</strong> AI response — tenant rights, deposit recovery</div><div class="activity-time">2h ago</div></div>
+        <div class="activity-item"><div class="activity-dot edited"></div><div class="activity-text"><strong>Edited</strong> IPC 420 explanation — added cheating elements</div><div class="activity-time">4h ago</div></div>
+        <div class="activity-item"><div class="activity-dot escalated"></div><div class="activity-text"><strong>Escalated</strong> complex divorce + property case to advocate</div><div class="activity-time">6h ago</div></div>
+        <div class="activity-item"><div class="activity-dot approved"></div><div class="activity-text"><strong>Approved</strong> consumer complaint guidance — e-commerce fraud</div><div class="activity-time">Yesterday</div></div>
+        <div class="activity-item"><div class="activity-dot approved"></div><div class="activity-text"><strong>Reviewed</strong> RTI application template for MGNREGA</div><div class="activity-time">Yesterday</div></div>
+      </div>
+      <h3 style="font-size:14px;font-weight:600;color:var(--navy);margin:24px 0 12px">Performance by Category</h3>
+      <div class="perf-bars">
+        <div class="perf-row"><span class="perf-label">Property &amp; Tenancy</span><div class="perf-bar-bg"><div class="perf-bar-fill" style="width:97%"></div></div><span class="perf-pct">97%</span></div>
+        <div class="perf-row"><span class="perf-label">Consumer Law</span><div class="perf-bar-bg"><div class="perf-bar-fill" style="width:94%"></div></div><span class="perf-pct">94%</span></div>
+        <div class="perf-row"><span class="perf-label">Criminal Law (IPC)</span><div class="perf-bar-bg"><div class="perf-bar-fill" style="width:88%"></div></div><span class="perf-pct">88%</span></div>
+        <div class="perf-row"><span class="perf-label">Family Law</span><div class="perf-bar-bg"><div class="perf-bar-fill" style="width:91%"></div></div><span class="perf-pct">91%</span></div>
+        <div class="perf-row"><span class="perf-label">Labour &amp; Service</span><div class="perf-bar-bg"><div class="perf-bar-fill" style="width:85%"></div></div><span class="perf-pct">85%</span></div>
+      </div>
+    </div>
+
+    <!-- Queue tab -->
+    <div id="stud-queue" class="stud-tab-content" style="display:none">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+        <span style="font-size:14px;font-weight:600;color:var(--navy)">Review Queue</span>
+        <span class="badge badge-blue">3 Pending</span>
+        <span style="font-size:12px;color:var(--text-3)">· avg +15 pts</span>
+      </div>
+      <p style="font-size:13px;color:var(--text-2);margin-bottom:16px">Review AI responses for accuracy. Approve, edit, flag issues, or escalate complex cases.</p>
+      <div style="display:flex;flex-direction:column;gap:12px" id="queue-items"></div>
+    </div>
+
+    <!-- Leaderboard tab -->
+    <div id="stud-leaderboard" class="stud-tab-content" style="display:none">
+      <p style="font-size:13px;color:var(--text-2);margin-bottom:16px">Top law students ranked by review accuracy and volume. Updated daily.</p>
+      <table class="leaderboard-table">
+        <thead><tr><th>Rank</th><th>Student</th><th>Progress</th><th>Points</th><th>Accuracy</th></tr></thead>
+        <tbody id="lb-tbody"></tbody>
+      </table>
+    </div>
+
+    <!-- Join tab -->
+    <div id="stud-join" class="stud-tab-content" style="display:none">
+      <div class="join-form" data-form-type="student">
+        <div class="join-form-title">Join NyaySetu Students</div>
+        <div class="join-form-sub">Create your student account and start reviewing today. Join 840+ law students across India.</div>
+        <div class="form-group"><label class="form-label" for="student-name">Full Name</label><input class="form-input" id="student-name" name="name" type="text" placeholder="Your full name" autocomplete="name"/></div>
+        <div class="form-group"><label class="form-label" for="student-email">Email Address</label><input class="form-input" id="student-email" name="email" type="email" placeholder="college@example.com" autocomplete="email"/></div>
+        <div class="form-group"><label class="form-label" for="student-phone">Phone Number</label><input class="form-input" id="student-phone" name="phone" type="tel" placeholder="+91 98765 43210" autocomplete="tel"/></div>
+        <div class="form-group"><label class="form-label" for="student-college">Law College / University</label><input class="form-input" id="student-college" name="college" type="text" placeholder="Institution name" autocomplete="organization"/></div>
+        <div class="form-group">
+          <label class="form-label" for="student-year">Year of Study</label>
+          <select class="form-select" id="student-year" name="year_of_study">
+            <option value="">Select year</option>
+            <option>1st Year (5-year LLB)</option><option>2nd Year (5-year LLB)</option><option>3rd Year (5-year LLB)</option><option>4th Year (5-year LLB)</option><option>5th Year (5-year LLB)</option>
+            <option>1st Year (3-year LLB)</option><option>2nd Year (3-year LLB)</option><option>3rd Year (3-year LLB)</option>
+            <option>LLM / Post-Graduate</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="student-interest">Area of Interest</label>
+          <select class="form-select" id="student-interest" name="interest_area">
+            <option value="">Select area</option>
+            <option>Criminal Law</option><option>Civil / Property Law</option><option>Family Law</option>
+            <option>Consumer Law</option><option>Constitutional Law</option><option>Corporate / Commercial</option><option>All Areas</option>
+          </select>
+        </div>
+        <div class="form-group"><label class="form-label" for="student-enrollment">Bar Council / Enrollment No. <span style="font-weight:400;color:var(--text-3)">(if enrolled)</span></label><input class="form-input" id="student-enrollment" name="enrollment_no" type="text" placeholder="Optional"/></div>
+        <button class="btn-join" onclick="joinSubmit(this)">🎓 Create Student Account</button>
+        <div class="form-agree">By joining, you agree to NyaySetu's <a href="#" onclick="showPage('terms')">Terms of Service</a> and Student Code of Conduct.</div>
+      </div>
+
+      <div style="margin-top:40px">
+        <h3 style="font-size:16px;font-weight:700;color:var(--navy);margin-bottom:20px">Your career starts here</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px">
+          <div class="process-step" data-num="🔍"><div class="step-icon">🔍</div><div class="step-title">Real Case Experience</div><div class="step-desc">Review actual queries from real people — not textbook problems.</div></div>
+          <div class="process-step" data-num="💰"><div class="step-icon">💰</div><div class="step-title">Earn as You Learn</div><div class="step-desc">Top students earn ₹5,000–₹15,000 per month reviewing cases.</div></div>
+          <div class="process-step" data-num="🏆"><div class="step-icon">🏆</div><div class="step-title">Ranked &amp; Recognised</div><div class="step-desc">National ranking, internships, mentorship from advocates.</div></div>
+          <div class="process-step" data-num="🎓"><div class="step-icon">🎓</div><div class="step-title">Mentorship from Advocates</div><div class="step-desc">Complex cases connect you with senior advocates for learning.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Join as Lawyer tab -->
+    <div id="stud-lawyer" class="stud-tab-content" style="display:none">
+      <div class="join-form" data-form-type="lawyer">
+        <div class="join-form-title">Join NyaySetu Lawyers</div>
+        <div class="join-form-sub">Create your lawyer profile for verified consultations. All lawyer profiles will be verified before approval.</div>
+        <div class="form-group"><label class="form-label" for="lawyer-name">Full Name</label><input class="form-input" id="lawyer-name" name="fullName" type="text" placeholder="Adv. full name" autocomplete="name"/></div>
+        <div class="form-group"><label class="form-label" for="lawyer-email">Email</label><input class="form-input" id="lawyer-email" name="email" type="email" placeholder="lawyer@example.com" autocomplete="email"/></div>
+        <div class="form-group"><label class="form-label" for="lawyer-phone">Phone Number</label><input class="form-input" id="lawyer-phone" name="phone" type="tel" placeholder="+91 98765 43210" autocomplete="tel"/></div>
+        <div class="form-group"><label class="form-label" for="lawyer-qualification">Qualification</label><input class="form-input" id="lawyer-qualification" name="qualification" type="text" placeholder="LLB, LLM, Bar Council enrollment"/></div>
+        <div class="form-group">
+          <label class="form-label" for="lawyer-specialization">Specialization</label>
+          <select class="form-select" id="lawyer-specialization" name="specialization">
+            <option value="">Select specialization</option>
+            <option>Criminal Law</option><option>Civil Law</option><option>Cyber Law</option><option>Family Law</option>
+            <option>Property Law</option><option>Consumer Law</option><option>Employment Law</option><option>Corporate Law</option>
+          </select>
+        </div>
+        <div class="form-group"><label class="form-label" for="lawyer-experience">Years of Experience</label><input class="form-input" id="lawyer-experience" name="experience" type="number" min="0" placeholder="e.g. 5"/></div>
+        <div class="form-group"><label class="form-label" for="lawyer-location">Location (City/State)</label><input class="form-input" id="lawyer-location" name="location" type="text" placeholder="Delhi, Delhi"/></div>
+        <div class="form-group"><label class="form-label" for="lawyer-fees">Expected Fees</label><input class="form-input" id="lawyer-fees" name="fees" type="text" placeholder="e.g. ₹1500 per consultation"/></div>
+        <div class="form-group"><label class="form-label" for="lawyer-bio">Short Bio <span style="font-weight:400;color:var(--text-3)">(optional)</span></label><textarea class="form-textarea" id="lawyer-bio" name="bio" rows="3" placeholder="Briefly describe your practice areas and experience"></textarea></div>
+        <div class="form-group"><label class="form-label" for="lawyer-certificate">Upload Certificate <span style="font-weight:400;color:var(--text-3)">(UI only)</span></label><input class="form-input" id="lawyer-certificate" name="certificate" type="file" accept=".pdf,.jpg,.jpeg,.png"/></div>
+        <div class="docs-disclaimer" style="margin-bottom:12px">🔐 All lawyer profiles will be verified before approval. NyaySetu may request Bar Council ID and supporting documents.</div>
+        <button class="btn-join" onclick="joinSubmit(this)">⚖ Submit Lawyer Profile</button>
+        <div class="form-agree">By joining, you agree to NyaySetu's <a href="#" onclick="showPage('terms')">Terms of Service</a>, verification checks, and professional conduct rules.</div>
+      </div>
+
+      <div style="margin-top:40px">
+        <h3 style="font-size:16px;font-weight:700;color:var(--navy);margin-bottom:20px">Why join as a lawyer?</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px">
+          <div class="process-step" data-num="✓"><div class="step-icon">✓</div><div class="step-title">Verified Visibility</div><div class="step-desc">Build trust with a verified profile shown to users seeking legal help.</div></div>
+          <div class="process-step" data-num="⚖"><div class="step-icon">⚖</div><div class="step-title">Relevant Case Leads</div><div class="step-desc">Receive cases filtered by location, specialization, and urgency.</div></div>
+          <div class="process-step" data-num="📋"><div class="step-icon">📋</div><div class="step-title">Case Summaries</div><div class="step-desc">Review structured user summaries before accepting consultation.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     ABOUT PAGE
+═══════════════════════════════════════ -->
+<!-- LAWYERS PAGE -->
+<div id="page-lawyers" class="page">
+  <div class="lawyers-page">
+    <div class="section-label">Lawyer Network</div>
+    <h1 class="students-h1">A verified advocate desk for NyaySetu cases.</h1>
+    <p class="lawyers-sub">This area is built for advocates who want organized case leads from NyaySetu users. Each lead is shaped from the user's chat, document inputs, urgency, location, budget, and consent before it reaches a lawyer.</p>
+
+    <div class="students-tabs">
+      <button class="lawyer-tab active" onclick="lawyerTab(this,'dashboard')">Case Desk</button>
+      <button class="lawyer-tab" onclick="lawyerTab(this,'leads')">Lead Inbox</button>
+      <button class="lawyer-tab" onclick="lawyerTab(this,'profile')">Trust & Verification</button>
+      <button class="lawyer-tab" onclick="lawyerTab(this,'join')">Join as Advocate</button>
+    </div>
+
+    <div id="lawyer-dashboard" class="lawyer-tab-content">
+      <div class="dashboard-stats">
+        <div class="dash-stat"><div class="dash-stat-num">24</div><div class="dash-stat-label">Matched Leads</div><div class="dash-stat-delta">By location + practice area</div></div>
+        <div class="dash-stat"><div class="dash-stat-num">11</div><div class="dash-stat-label">Urgent Reviews</div><div class="dash-stat-delta">Bail, notice, cyber fraud</div></div>
+        <div class="dash-stat"><div class="dash-stat-num">4.8</div><div class="dash-stat-label">Client Rating</div><div class="dash-stat-delta">After consultations</div></div>
+        <div class="dash-stat"><div class="dash-stat-num">6h</div><div class="dash-stat-label">Avg Response</div><div class="dash-stat-delta">Target response window</div></div>
+      </div>
+      <h3 style="font-size:14px;font-weight:600;color:var(--navy);margin-bottom:12px">How NyaySetu routes work to advocates</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px">
+        <div class="process-step" data-num="1"><div class="step-icon">1</div><div class="step-title">User asks first</div><div class="step-desc">The user starts in AI Chat, uploads evidence if needed, and chooses to connect with a lawyer.</div></div>
+        <div class="process-step" data-num="2"><div class="step-icon">2</div><div class="step-title">Case summary created</div><div class="step-desc">NyaySetu prepares a structured brief with facts, category, urgency, files, and open questions.</div></div>
+        <div class="process-step" data-num="3"><div class="step-icon">3</div><div class="step-title">Advocate matched</div><div class="step-desc">Matching considers specialization, city, language, budget, urgency, and verification status.</div></div>
+        <div class="process-step" data-num="4"><div class="step-icon">4</div><div class="step-title">Consultation accepted</div><div class="step-desc">The lawyer can accept, decline, request documents, or mark the matter as urgent.</div></div>
+      </div>
+    </div>
+
+    <div id="lawyer-leads" class="lawyer-tab-content" style="display:none">
+      <div class="lawyer-lead-head">
+        <span class="lawyer-lead-heading">Lead Inbox</span>
+        <span class="badge badge-blue">4 Demo Leads</span>
+        <span class="lawyer-lead-meta">· sorted by urgency</span>
+      </div>
+      <p class="lawyer-lead-intro">These examples show how NyaySetu presents cases to lawyers: concise facts, category, city, expected consultation budget, urgency, and whether a summary is ready.</p>
+      <div style="display:flex;flex-direction:column;gap:12px" id="lawyer-leads-list"></div>
+    </div>
+
+    <div id="lawyer-profile" class="lawyer-tab-content" style="display:none">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px">
+        <div class="process-step" data-num="1"><div class="step-icon">ID</div><div class="step-title">Identity & Bar check</div><div class="step-desc">Collect enrollment number, court/practice location, qualification, and supporting proof for verification.</div></div>
+        <div class="process-step" data-num="2"><div class="step-icon">SP</div><div class="step-title">Specialization map</div><div class="step-desc">Tag practice areas such as criminal, family, property, consumer, cyber, employment, or corporate law.</div></div>
+        <div class="process-step" data-num="3"><div class="step-icon">AV</div><div class="step-title">Availability controls</div><div class="step-desc">Future production flow can show consultation windows, language preference, fees, and case capacity.</div></div>
+        <div class="process-step" data-num="4"><div class="step-icon">TR</div><div class="step-title">Trust signals</div><div class="step-desc">Verified badge, user reviews, completed consultations, and clear professional conduct rules.</div></div>
+      </div>
+      <div class="docs-disclaimer" style="margin-top:18px">NyaySetu is not a law firm. Lawyers remain independent professionals. Production verification should happen through backend review, document checks, and moderation.</div>
+    </div>
+
+    <div id="lawyer-join" class="lawyer-tab-content" style="display:none">
+      <div class="join-form" data-form-type="lawyer">
+        <div class="join-form-title">Apply for NyaySetu Advocate Network</div>
+        <div class="join-form-sub">Submit practice details so NyaySetu can show your profile to users seeking professional consultation.</div>
+        <div class="form-group"><label class="form-label" for="lawyer-page-name">Full Name</label><input class="form-input" id="lawyer-page-name" name="fullName" type="text" placeholder="Adv. full name" autocomplete="name"/></div>
+        <div class="form-group"><label class="form-label" for="lawyer-page-email">Email</label><input class="form-input" id="lawyer-page-email" name="email" type="email" placeholder="lawyer@example.com" autocomplete="email"/></div>
+        <div class="form-group"><label class="form-label" for="lawyer-page-phone">Phone Number</label><input class="form-input" id="lawyer-page-phone" name="phone" type="tel" placeholder="+91 98765 43210" autocomplete="tel"/></div>
+        <div class="form-group"><label class="form-label" for="lawyer-page-qualification">Qualification</label><input class="form-input" id="lawyer-page-qualification" name="qualification" type="text" placeholder="LLB, LLM, Bar Council enrollment"/></div>
+        <div class="form-group">
+          <label class="form-label" for="lawyer-page-specialization">Specialization</label>
+          <select class="form-select" id="lawyer-page-specialization" name="specialization">
+            <option value="">Select specialization</option>
+            <option>Criminal Law</option><option>Civil Law</option><option>Cyber Law</option><option>Family Law</option>
+            <option>Property Law</option><option>Consumer Law</option><option>Employment Law</option><option>Corporate Law</option>
+          </select>
+        </div>
+        <div class="form-group"><label class="form-label" for="lawyer-page-experience">Years of Experience</label><input class="form-input" id="lawyer-page-experience" name="experience" type="number" min="0" placeholder="e.g. 5"/></div>
+        <div class="form-group"><label class="form-label" for="lawyer-page-location">Location (City/State)</label><input class="form-input" id="lawyer-page-location" name="location" type="text" placeholder="Delhi, Delhi"/></div>
+        <div class="form-group"><label class="form-label" for="lawyer-page-fees">Expected Fees</label><input class="form-input" id="lawyer-page-fees" name="fees" type="text" placeholder="e.g. ₹1500 per consultation"/></div>
+        <div class="form-group"><label class="form-label" for="lawyer-page-bio">Short Bio <span style="font-weight:400;color:var(--text-3)">(optional)</span></label><textarea class="form-textarea" id="lawyer-page-bio" name="bio" rows="3" placeholder="Briefly describe your practice areas and experience"></textarea></div>
+        <div class="form-group"><label class="form-label" for="lawyer-page-certificate">Upload Certificate <span style="font-weight:400;color:var(--text-3)">(UI only)</span></label><input class="form-input" id="lawyer-page-certificate" name="certificate" type="file" accept=".pdf,.jpg,.jpeg,.png"/></div>
+        <div class="docs-disclaimer" style="margin-bottom:12px">🔐 NyaySetu may request Bar Council ID and supporting documents before approval.</div>
+        <button class="btn-join" onclick="joinSubmit(this)">⚖ Submit Advocate Profile</button>
+        <div class="form-agree">By joining, you agree to NyaySetu's <a href="#" onclick="showPage('terms')">Terms of Service</a>, verification checks, and professional conduct rules.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="page-about" class="page">
+  <div class="prose-page">
+    <h1>About NyaySetu</h1>
+    <p class="prose-sub">Bridging the gap between the people of India and the law.</p>
+    <h2>1. What is NyaySetu?</h2>
+    <p>NyaySetu is an AI-powered platform designed to make Indian law simple and accessible to everyone. We believe that understanding your legal rights should not depend on how much money you have or who you know.</p>
+    <h2>2. What it does</h2>
+    <p>Our platform allows you to ask legal questions in plain language, whether in English, Hindi, or regional languages. Our intelligent system breaks down complex legal jargon into clear, easy-to-understand steps. Additionally, we provide tools to generate standard legal documents like Legal Notices, Rent Agreements, and Consumer Complaints instantly.</p>
+    <h2>3. Who it is for</h2>
+    <p>NyaySetu is built for the everyday citizen. Whether you are dealing with a property dispute, trying to file a consumer complaint, or simply want to know your rights before signing a contract, NyaySetu is here to guide you.</p>
+    <p>It is also a platform for law students to apply their knowledge by reviewing AI-generated responses and helping citizens, while building their professional portfolios.</p>
+    <h2>4. Our Vision</h2>
+    <p>We envision an India where justice is not delayed by a lack of understanding or resources. By combining the speed of modern AI with the expertise of legal professionals, we aim to provide a reliable first step for millions seeking legal help across the country.</p>
+    <div class="disclaimer-box">⚠️ <strong>Important Disclaimer</strong><br>NyaySetu is a technology platform, <strong>not a law firm</strong>. The information provided by our AI, platform, or student reviewers is for educational and informational purposes only and does <strong>not constitute legal advice</strong>. Using NyaySetu does not create an attorney-client relationship. Always consult a qualified and licensed advocate for professional legal advice regarding your specific situation.</div>
+  </div>
+  <footer class="site-footer"><div class="footer-inner"><div class="footer-brand"><div class="footer-brand-icon">⚖</div> NyaySetu</div><div class="footer-links"><button class="footer-link" onclick="showPage('privacy')">Privacy Policy</button><button class="footer-link" onclick="showPage('terms')">Terms of Use</button></div></div><div class="footer-copy">© 2026 NyaySetu · Not a substitute for legal advice</div></footer>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PRIVACY PAGE
+═══════════════════════════════════════ -->
+<div id="page-privacy" class="page">
+  <div class="prose-page">
+    <h1>How NyaySetu handles your information</h1>
+    <p class="prose-sub">This policy explains what we collect, why we use it, and the choices you have when using NyaySetu.<br><small style="color:var(--text-3)">Last updated: April 28, 2026</small></p>
+    <div class="prose-toc">
+      <a href="#pi">Introduction</a><a href="#pc">Data Collection</a><a href="#pu">Data Usage</a>
+      <a href="#ps">Sharing</a><a href="#pr">User Rights</a><a href="#psec">Security</a>
+    </div>
+    <h2 id="pi">Introduction</h2>
+    <p>NyaySetu is an AI-powered legal information platform. We aim to make legal guidance easier to understand, while respecting your privacy and keeping our data practices simple.</p>
+    <h2 id="pc">Data Collection</h2>
+    <p>We may collect information you provide directly or through login features, including:</p>
+    <ul>
+      <li>Name, email address, password, city, and selected role when you create an account.</li>
+      <li>Student details such as college, year of study, and area of interest if you join as a law student.</li>
+      <li>Google login details such as your name, email address, and profile picture when you choose Google sign-in.</li>
+      <li>Legal questions, document inputs, or text you submit to use AI features.</li>
+      <li>Basic usage data needed to improve reliability, performance, and safety.</li>
+    </ul>
+    <p>In the current browser-based version, some account/session details may be stored in your browser using localStorage.</p>
+    <h2 id="pu">Data Usage</h2>
+    <p>We use your information to provide the platform, personalize your dashboard, process AI requests, improve features, protect against misuse, and communicate important updates. We do not sell your personal information.</p>
+    <h2 id="ps">Sharing</h2>
+    <p>We may use trusted tools or service providers for authentication, hosting, translation, analytics, or AI processing. We only share what is needed for those services to work.</p>
+    <h2 id="pr">User Rights</h2>
+    <p>You may request access, correction, or deletion of your account information where technically possible. You can also clear locally stored browser data at any time from your browser settings.</p>
+    <h2 id="psec">Security</h2>
+    <p>We take reasonable steps to protect information, but no online system is completely secure. Please avoid submitting highly sensitive personal, financial, medical, or case-confidential details unless necessary.</p>
+    <div class="disclaimer-box">NyaySetu provides legal information and AI-generated assistance. It is not a law firm and does not replace advice from a qualified advocate. For urgent, complex, or high-risk matters, consult a licensed legal professional before taking action.</div>
+  </div>
+  <footer class="site-footer"><div class="footer-inner"><div class="footer-brand"><div class="footer-brand-icon">⚖</div> NyaySetu</div><div class="footer-links"><button class="footer-link" onclick="showPage('about')">About Us</button><button class="footer-link" onclick="showPage('terms')">Terms of Use</button></div></div><div class="footer-copy">© 2026 NyaySetu · Not a substitute for legal advice</div></footer>
+</div>
+
+<!-- ═══════════════════════════════════════
+     TERMS PAGE
+═══════════════════════════════════════ -->
+<div id="page-terms" class="page">
+  <div class="prose-page">
+    <h1>Simple rules for using NyaySetu</h1>
+    <p class="prose-sub">These terms explain what you can expect from NyaySetu and what we expect from users of the platform.<br><small style="color:var(--text-3)">Last updated: April 28, 2026</small></p>
+    <div class="prose-toc">
+      <a href="#ti">Introduction</a><a href="#ts">Our Service</a><a href="#ta">Accounts</a>
+      <a href="#tr" id="responsibility">User Responsibility</a><a href="#td" id="disclaimer-link">No Legal Advice</a><a href="#tl">Limitations</a>
+    </div>
+    <h2 id="ti">Introduction</h2>
+    <p>By using NyaySetu, you agree to these Terms and Conditions. If you do not agree, please do not use the platform.</p>
+    <h2 id="ts">Our Service</h2>
+    <p>NyaySetu provides AI-powered legal information, document assistance, law simplification, and student review workflows. The platform is designed to help users understand legal topics more clearly.</p>
+    <h2 id="ta">Accounts and Login</h2>
+    <p>You may create an account using email/password or Google login. You are responsible for keeping your login details secure and for all activity under your account.</p>
+    <ul><li>Provide accurate information when signing up.</li><li>Do not impersonate another person.</li><li>Do not use another user's account without permission.</li></ul>
+    <h2 id="tr">User Responsibility</h2>
+    <p>You are responsible for checking information before relying on it. You should not submit illegal, harmful, abusive, misleading, or confidential third-party information without proper authority.</p>
+    <h2 id="td">No Legal Advice</h2>
+    <p>NyaySetu is not a law firm. AI responses, generated documents, simplified explanations, and student reviews are for general legal information only. They are not a substitute for advice from a qualified advocate.</p>
+    <p>For court matters, deadlines, arrests, notices, contracts, property disputes, or other serious issues, speak to a licensed lawyer before taking action.</p>
+    <h2 id="tl">Platform Limitations</h2>
+    <p>AI systems can make mistakes, miss facts, or provide incomplete information. Laws may change, and legal outcomes depend on facts, documents, jurisdiction, and procedure.</p>
+    <ul><li>We do not guarantee that every answer is complete, current, or suitable for your specific case.</li><li>Generated documents may need review by a legal professional before use.</li><li>The platform may be unavailable, delayed, or changed from time to time.</li></ul>
+    <div class="disclaimer-box" id="disclaimer">⚠️ <strong>Legal Disclaimer</strong><br>NyaySetu is a technology platform, not a law firm. Nothing on this platform constitutes legal advice. Always consult a licensed advocate for your specific legal situation.</div>
+  </div>
+  <footer class="site-footer"><div class="footer-inner"><div class="footer-brand"><div class="footer-brand-icon">⚖</div> NyaySetu</div><div class="footer-links"><button class="footer-link" onclick="showPage('about')">About Us</button><button class="footer-link" onclick="showPage('privacy')">Privacy Policy</button></div></div><div class="footer-copy">© 2026 NyaySetu · Not a substitute for legal advice</div></footer>
+</div>
+
+<!-- ═══════════════════════════════════════
+     JAVASCRIPT
+═══════════════════════════════════════ -->
+<script src="assets/js/app.js"></script>
+<script src="assets/js/translations.js"></script>
+</body>
+</html>
