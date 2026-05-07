@@ -383,6 +383,8 @@
         </div>
       </div>
       <div class="chat-topbar-actions">
+        <button class="chat-action-btn" id="tts-toggle" onclick="toggleTTS()" title="Toggle voice responses">🔊 TTS</button>
+        <button class="chat-action-btn" id="api-key-btn" onclick="setApiKey()" title="Set Groq API Key">🔑 API Key</button>
         <button class="chat-action-btn" onclick="newChat()">New Chat</button>
         <button class="chat-action-btn" onclick="showPage('docs')">📄 Documents</button>
         <button class="chat-action-btn" onclick="openLawyerModal(null)" style="border-color:var(--blue);color:var(--blue)">👨‍⚖️ Find Lawyers</button>

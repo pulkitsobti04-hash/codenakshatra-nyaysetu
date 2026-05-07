@@ -553,7 +553,7 @@ function applyKnownUiTranslation(dict) {
   setAllText('.footer-link', Array.from(document.querySelectorAll('.footer-link')).map(el => tr(dict, el.textContent.trim())));
   setSelText('.sidebar-header-title', tr(dict, 'Topics'));
   setAllText('.sidebar-section-title', ['Common Questions', 'Criminal Law', 'Family & Property'].map(k => tr(dict, k)));
-  setAllText('.chat-action-btn', Array.from(document.querySelectorAll('.chat-action-btn')).map(el => tr(dict, el.textContent.replace(/^[^A-Za-z0-9]+/, '').trim())));
+  setAllText('.chat-action-btn', Array.from(document.querySelectorAll('.chat-action-btn')).filter(el => !el.id).map(el => tr(dict, el.textContent.replace(/^[^A-Za-z0-9]+/, '').trim())));
   setSelText('.lm-head-title', tr(dict, 'Connect with a Lawyer'));
   setPreviewTitle(tr(dict, 'Document Preview'));
   setAllText('.docs-preview-actions button', ['Copy', 'Download PDF'].map(k => tr(dict, k)));
@@ -705,6 +705,7 @@ let caseSummary = null;
 let detectedDeadline = null;
 let evidenceFiles = [];
 let reminderSet = false;
+let ttsEnabled = false;
 
 const LEGAL_SYSTEM_PROMPT = `You are NyaySetu, an AI legal assistant specialising in Indian law. You help ordinary Indian citizens understand their legal rights and options clearly.
 
@@ -729,6 +730,45 @@ For every query, structure your response with exactly these sections:
 (Brief disclaimer + when they must see a real lawyer)
 
 Always be empathetic, clear, and avoid jargon. Always respond in the language selected by the user. Keep it practical and actionable.`;
+
+async function callGroqAPI(userMessage) {
+  const apiKey = localStorage.getItem('groqApiKey') || 'YOUR_GROQ_API_KEY_HERE';
+  if (!apiKey || apiKey === 'YOUR_GROQ_API_KEY_HERE') {
+    return makeDemoReply(userMessage); // Fallback to demo
+  }
+
+  const messages = [
+    { role: 'system', content: LEGAL_SYSTEM_PROMPT },
+    ...chatHistory.slice(-10), // Last 10 messages for context
+    { role: 'user', content: userMessage }
+  ];
+
+  try {
+    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`
+      },
+      body: JSON.stringify({
+        model: 'mixtral-8x7b-32768',
+        messages: messages,
+        max_tokens: 1000,
+        temperature: 0.7
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error(`API error: ${response.status} ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    return data.choices[0].message.content;
+  } catch (error) {
+    console.error('Groq API error:', error);
+    return makeDemoReply(userMessage); // Fallback
+  }
+}
 
 const CASE_LIBRARY = {
   Cybercrime: {
@@ -865,9 +905,9 @@ async function sendMessage() {
   isLoading = true;
   showTyping();
 
-  window.setTimeout(() => {
+  window.setTimeout(async () => {
     hideTyping();
-    const reply = makeDemoReply(text);
+    const reply = await callGroqAPI(text);
     chatHistory.push({ role: 'assistant', content: reply });
     appendBubble('bot', reply);
 
@@ -896,6 +936,9 @@ function appendBubble(role, text) {
   `;
   msgs.appendChild(row);
   msgs.scrollTop = msgs.scrollHeight;
+  if (role === 'bot') {
+    speakText(text);
+  }
 }
 
 function formatBotText(text) {
@@ -1010,7 +1053,10 @@ function detectCaseType() {
 /* Voice input */
 function startVoice() {
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!SR) { alert('Voice input not supported in this browser. Try Chrome.'); return; }
+  if (!SR) {
+    alert('Voice input not supported in this browser. Please use Chrome or Edge.');
+    return;
+  }
   const r = new SR();
   const recogLang = getSpeechRecognitionLang(selectedLanguage);
   r.lang = recogLang;
@@ -1018,7 +1064,44 @@ function startVoice() {
     document.getElementById('chat-input').value = e.results[0][0].transcript;
     document.getElementById('send-btn').disabled = false;
   };
-  r.start();
+  r.onerror = e => {
+    console.error('Speech recognition error:', e);
+    alert('Voice input failed. Please try again or type your message.');
+  };
+  try {
+    r.start();
+  } catch (error) {
+    console.error('Failed to start speech recognition:', error);
+    alert('Unable to start voice input.');
+  }
+}
+
+function toggleTTS() {
+  ttsEnabled = !ttsEnabled;
+  const btn = document.getElementById('tts-toggle');
+  btn.textContent = ttsEnabled ? '🔊 TTS ON' : '🔊 TTS';
+  btn.style.background = ttsEnabled ? 'var(--success-bg)' : '';
+  btn.style.color = ttsEnabled ? 'var(--success)' : '';
+}
+
+function setApiKey() {
+  const key = prompt('Enter your Groq API Key:');
+  if (key) {
+    localStorage.setItem('groqApiKey', key);
+    alert('API Key saved!');
+  }
+}
+
+function speakText(text) {
+  if (!ttsEnabled || !window.speechSynthesis) return;
+  // Strip HTML tags for speech
+  const plainText = text.replace(/<[^>]*>/g, '');
+  // Stop any ongoing speech
+  window.speechSynthesis.cancel();
+  const utterance = new SpeechSynthesisUtterance(plainText);
+  // Set language based on selected language
+  utterance.lang = selectedLanguage === 'hi' ? 'hi-IN' : 'en-IN';
+  window.speechSynthesis.speak(utterance);
 }
 
 /* Evidence upload */
